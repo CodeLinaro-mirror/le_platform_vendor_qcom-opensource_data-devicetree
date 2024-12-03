@@ -1,0 +1,39 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+ */
+
+#include "ipa.dtsi"
+
+&ipa_hw{
+	interconnects = <&system_noc MASTER_IPA &gem_noc SLAVE_LLCC>,
+	<&mc_virt MASTER_LLCC &mc_virt SLAVE_EBI1>,
+	<&gem_noc MASTER_APPSS_PROC &system_noc SLAVE_IPA_CFG>;
+
+	interconnect-names = "ipa_to_llcc", "llcc_to_ebi1", "appss_to_ipa";
+	/* No vote */
+	qcom,no-vote =
+	<0 0 0 0 0 0>;
+
+	/* SVS2 */
+	qcom,svs2 =
+	<18000 0 600000 1900000 0 76800>;
+
+	/* SVS */
+	qcom,svs =
+	<400000 0 1200000 2800000 0 150000>;
+
+	/* NOMINAL */
+	qcom,nominal =
+	<670000 0 2400000 5500000 0 400000>;
+
+	/* TURBO */
+	qcom,turbo =
+	<1380000 0 3600000 5500000 0 400000>;
+
+	qcom,bus-vector-names = "MIN", "SVS2", "SVS", "NOMINAL",
+		"TURBO";
+	qcom,throughput-threshold = <2000 2500 10000>;
+	qcom,scaling-exceptions = "wdi", "1400", "4800", "10000";
+};
+
