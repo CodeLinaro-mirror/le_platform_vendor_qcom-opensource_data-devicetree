@@ -1,0 +1,38 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+ */
+
+#include "sdxpinn.dtsi"
+
+&soc {
+	aqr_vreg: aqr_vreg {
+		compatible = "qti-regulator-fixed";
+		regulator-name = "phy0_vreg";
+		gpio = <&tlmm 86 GPIO_ACTIVE_HIGH>;
+		regulator-min-microvolt = <700000>;
+		regulator-max-microvolt = <700000>;
+		enable-active-high;
+		regulator-enable-ramp-delay = <10000>;
+	};
+
+	rtl_vreg: rtl_vreg {
+		compatible = "qti-regulator-fixed";
+		regulator-name = "phy1_vreg";
+		gpio = <&tlmm 88 GPIO_ACTIVE_HIGH>;
+		regulator-min-microvolt = <1050000>;
+		regulator-max-microvolt = <1050000>;
+		enable-active-high;
+		regulator-enable-ramp-delay = <80000>;
+	};
+};
+
+&ethqos_hw1 {
+	status = "ok";
+	vreg_emac_phy-supply = <&aqr_vreg>;
+};
+
+&ethqos_hw2 {
+	status = "ok";
+        vreg_emac_phy-supply = <&rtl_vreg>;
+};
