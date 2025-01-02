@@ -86,7 +86,7 @@
 		qcom,lan-coal-enable;
 
 		/* Boot Config Information */
-		/*nvmem-cells = <&boot_config>;*/
+		nvmem-cells = <&boot_config>;
 		nvmem-cell-names = "boot_conf";
 		qcom,fast-boot-mask = <0x1e>;
 		qcom,host-bypass-mask = <0x40>;
