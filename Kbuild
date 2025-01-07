@@ -5,6 +5,7 @@ endif
 ifeq ($(CONFIG_ARCH_SDXPINN),y)
 dtbo-y += ./eth/sdxpinn-idp-cpe.dtbo
 dtbo-y += ./eth/sdxpinn-idp-mbb.dtbo
+dtbo-y += ./eth/sdxpinn-idp-mbb-v2.dtbo
 endif
 
 always-y	:= $(dtb-y) $(dtbo-y)

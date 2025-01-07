@@ -1,0 +1,64 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+ */
+
+#include <dt-bindings/clock/qcom,sdx75-gcc.h>
+
+&soc {
+	ioss: qcom,ioss {
+		compatible = "qcom,ioss-v2";
+		qcom,max-ddr-bandwidth = <2500>;
+	};
+
+	ioss_r8125_eth0_rx: r8125_rx@eth0 {
+		qcom,dir-rx;
+
+		qcom,rx-filter-ip;
+
+		qcom,ring-size = <1023>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <32>;
+		qcom,mod-count-max = <64>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+	ioss_r8125_eth0_tx: r8125_tx@eth0 {
+		qcom,dir-tx;
+
+		qcom,ring-size = <4096>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <32>;
+		qcom,mod-count-max = <64>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+};
+
+&pcie0_rp {
+	realtek,rtl8125@pcie0_rp {
+		compatible = "qcom,ioss-v2-device";
+
+		reg = <0 0 0 0 0>;
+		qcom,ioss = <&ioss>;
+		qcom,ioss_instance = <0>;
+		qcom,ioss_channels =
+			<&ioss_r8125_eth0_rx>,
+			<&ioss_r8125_eth0_tx>;
+
+		/* ipa shares this group with rtl */
+		qcom,iommu-group = <&ipa_eth_group1>;
+
+		pci-ids =
+			"10ec:8125",
+			"10ec:3000";
+	};
+
+};
+
+&pcie0 {
+	status = "ok";
+};
