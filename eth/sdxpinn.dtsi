@@ -275,7 +275,37 @@
 	};
 };
 &soc {
-	mtl_rx_setup: rx-queues-config {
+	ioss: qcom,ioss {
+		compatible = "qcom,ioss-v2";
+		qcom,line_rate_for_llcc = <10000>;
+	};
+
+	ioss_emac0_rx: iemac_rx@emac0 {
+		qcom,dir-rx;
+		qcom,rx-filter-be;
+
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+	ioss_emac0_tx: iemac_tx@emac0 {
+		qcom,dir-tx;
+
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+	emac0_mtl_rx_setup: emac0_rx-queues-config {
 		snps,rx-queues-to-use = <4>;
 		snps,rx-sched-sp;
 		snps,mka_mcbcq_filtering;
@@ -310,7 +340,7 @@
 		};
 	};
 
-	mtl_tx_setup: tx-queues-config {
+	emac0_mtl_tx_setup: emac0_tx-queues-config {
 		snps,tx-queues-to-use = <4>;
 		snps,tx-sched-sp;
 		queue0 {
@@ -337,40 +367,7 @@
 		};
 	};
 
-	mtl_rxeth1_setup: rtlrx-queues-config {
-		snps,rx-queues-to-use = <2>;
-		snps,rx-sched-sp;
-		snps,mka_mcbcq_filtering;
-
-		queue0 {
-			snps,dcb-algorithm;
-			snps,fifo_depth = <7680>;
-			snps,map-to-dma-channel = <0x1>;
-			qcom,ipa_offload;
-		};
-
-		queue1 {
-			snps,dcb-algorithm;
-			snps,map-to-dma-channel = <0x1>;
-			snps,fifo_depth = <512>;
-			snps,threshold_byte = <128>;
-		};
-	};
-
-	mtl_txeth1_setup: rtltx-queues-config {
-		snps,tx-queues-to-use = <2>;
-		snps,tx-sched-sp;
-		queue0 {
-			snps,dcb-algorithm;
-			qcom,ipa_offload;
-		};
-
-		queue1 {
-			snps,dcb-algorithm;
-		};
-	};
-
-	stmmac_axi_setup: stmmac-axi-config {
+	emac0_stmmac_axi_setup: emac0_stmmac-axi-config {
 		snps,wr_osr_lmt = <15>;
 		snps,rd_osr_lmt = <15>;
 		snps,axi_kbbe;
@@ -382,69 +379,14 @@
 		snps,blen = <0 0 0 0 0 0 0>;
 	};
 
-	ioss: qcom,ioss {
-		compatible = "qcom,ioss-v2";
-		qcom,line_rate_for_llcc = <10000>;
-	};
-
-	ioss_eth0_rx: iemac_rx@eth0 {
-		qcom,dir-rx;
-		qcom,rx-filter-be;
-
-		qcom,ring-size = <1024>;
-		qcom,buff-size = <2048>;
-
-		qcom,mod-count-min = <16>;
-		qcom,mod-count-max = <16>;
-		qcom,mod-usecs-min = <30>;
-		qcom,mod-usecs-max = <60>;
-	};
-
-	ioss_eth0_tx: iemac_tx@eth0 {
-		qcom,dir-tx;
-
-		qcom,ring-size = <1024>;
-		qcom,buff-size = <2048>;
-
-		qcom,mod-count-min = <16>;
-		qcom,mod-count-max = <16>;
-		qcom,mod-usecs-min = <30>;
-		qcom,mod-usecs-max = <60>;
-	};
-
-	ioss_eth1_rx: iemac_rx@eth1 {
-		qcom,dir-rx;
-		qcom,rx-filter-be;
-
-		qcom,ring-size = <1024>;
-		qcom,buff-size = <2048>;
-
-		qcom,mod-count-min = <16>;
-		qcom,mod-count-max = <16>;
-		qcom,mod-usecs-min = <30>;
-		qcom,mod-usecs-max = <60>;
-	};
-
-	ioss_eth1_tx: iemac_tx@eth1 {
-		qcom,dir-tx;
-		qcom,ring-size = <1024>;
-		qcom,buff-size = <2048>;
-
-		qcom,mod-count-min = <16>;
-		qcom,mod-count-max = <16>;
-		qcom,mod-usecs-min = <30>;
-		qcom,mod-usecs-max = <60>;
-	};
-
-	ethqos_hw1: qcom,emac0@23040000 {
-		status = "disabled";
+	emac0: qcom,emac0@23040000 {
 		compatible = "qcom,stmmac-ethqos", "snps,dwxgmac", "qcom,ioss-v2-device";
 		qcom,arm-smmu;
 		qcom,ioss = <&ioss>;
 		qcom,ioss_instance = <0>;
 		qcom,ioss_channels =
-			<&ioss_eth0_rx>,
-			<&ioss_eth0_tx>;
+			<&ioss_emac0_rx>,
+			<&ioss_emac0_tx>;
 		qcom,ioss-wol-phy;
 		qcom,iommu-group = <&ipa_eth_group1>;
 		dma-coherent;
@@ -502,24 +444,13 @@
 					<&tlmm 97 IRQ_TYPE_EDGE_FALLING>;
 		interrupt-names = "macirq","phy-intr";
 
-		phy-mode = "usxgmii";
 		enable-pfc;
 
 		vreg_a_sgmii_1p2-supply = <&L1B>;
 		vreg_a_sgmii_0p9-supply = <&L4B>;
 		gdsc_emac-supply = <&gcc_emac0_gdsc>;
 
-		snps,reset-gpio = <&tlmm 96 1>;
-
-		snps,reset-delays-us = <1000 100000 221000>;
-
-		managed = "auto";
-		eth-c45-mdio-probe;
-
 		snps,crc_strip;
-		snps,reset-active-low;
-
-		snps,axi-config = <&stmmac_axi_setup>;
 
 		pinctrl-names = "default","init";
 
@@ -542,12 +473,83 @@
 		snps,pbl = <32>;
 		tx-fifo-depth = <49152>;
 		rx-fifo-depth = <20480>;
-		snps,mtl-rx-config = <&mtl_rx_setup>;
-		snps,mtl-tx-config = <&mtl_tx_setup>;
+		snps,mtl-rx-config = <&emac0_mtl_rx_setup>;
+		snps,mtl-tx-config = <&emac0_mtl_tx_setup>;
+
+		snps,axi-config = <&emac0_stmmac_axi_setup>;
+		status = "disabled";
 	};
 
-	ethqos_hw2: qcom,emac1@22FC0000 {
-		status = "disabled";
+	ioss_emac1_rx: iemac_rx@emac1 {
+		qcom,dir-rx;
+		qcom,rx-filter-be;
+
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+	ioss_emac1_tx: iemac_tx@emac1 {
+		qcom,dir-tx;
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+	emac1_mtl_rx_setup: emac1_rx-queues-config {
+		snps,rx-queues-to-use = <2>;
+		snps,rx-sched-sp;
+		snps,mka_mcbcq_filtering;
+
+		queue0 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <7680>;
+			snps,map-to-dma-channel = <0x1>;
+			qcom,ipa_offload;
+		};
+
+		queue1 {
+			snps,dcb-algorithm;
+			snps,map-to-dma-channel = <0x1>;
+			snps,fifo_depth = <512>;
+			snps,threshold_byte = <128>;
+		};
+	};
+
+	emac1_mtl_tx_setup: emac1_tx-queues-config {
+		snps,tx-queues-to-use = <2>;
+		snps,tx-sched-sp;
+		queue0 {
+			snps,dcb-algorithm;
+			qcom,ipa_offload;
+		};
+
+		queue1 {
+			snps,dcb-algorithm;
+		};
+	};
+
+	emac1_stmmac_axi_setup: emac1_stmmac-axi-config {
+		snps,wr_osr_lmt = <15>;
+		snps,rd_osr_lmt = <15>;
+		snps,axi_kbbe;
+		/* If FB is disabled, the AXI master chooses
+		 * a burst length of any value less than the
+		 * maximum enabled burst length
+		 * (all lesser burst length enables are redundant).
+		 */
+		snps,blen = <0 0 0 0 0 0 0>;
+	};
+
+	emac1: qcom,emac1@22FC0000 {
 		compatible = "qcom,stmmac-ethqos", "snps,dwxgmac", "qcom,ioss-v2-device";
 		qcom,arm-smmu;
 		qcom,ioss = <&ioss>;
@@ -557,8 +559,8 @@
 		iommus = <&apps_smmu 0x60 0xf>;
 
 		qcom,ioss_channels =
-			<&ioss_eth1_rx>,
-			<&ioss_eth1_tx>;
+			<&ioss_emac1_rx>,
+			<&ioss_emac1_tx>;
 
 		qcom,ioss-wol-phy;
 
@@ -611,8 +613,6 @@
 			     &emac1_pin_phy_intr_inactive
 			     &emac1_phy_reset_state_inactive>;
 
-		qcom,phy-intr-redirect = <&tlmm 109 IRQ_TYPE_EDGE_FALLING>;
-		snps,reset-gpio = <&tlmm 108 1>;
 		snps,crc_strip;
 
 		interconnect-names = "axi_icc_path", "apb_icc_path";
@@ -623,16 +623,12 @@
 		snps,pbl = <32>;
 		rx-fifo-depth = <8192>;
 		tx-fifo-depth = <8192>;
-		snps,mtl-rx-config = <&mtl_rxeth1_setup>;
-		snps,mtl-tx-config = <&mtl_txeth1_setup>;
+		snps,mtl-rx-config = <&emac1_mtl_rx_setup>;
+		snps,mtl-tx-config = <&emac1_mtl_tx_setup>;
 
-		snps,reset-active-low;
-		snps,reset-delays-us = <1000 40 150000>;
-		phy-mode = "usxgmii";
-		managed = "auto";
-		eth-c45-mdio-probe;
-		snps,axi-config = <&stmmac_axi_setup>;
+		snps,axi-config = <&emac1_stmmac_axi_setup>;
 		mac-address = [00 55 7B B5 7D f7];
+		status = "disabled";
 
 	};
 };

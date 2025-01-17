@@ -17,8 +17,13 @@
 	};
 };
 
-&ethqos_hw1 {
+&emac0 {
 	status = "ok";
+	phy-mode = "usxgmii";
+	snps,reset-gpio = <&tlmm 96 1>;
+	managed = "auto";
+	eth-c45-mdio-probe;
+	snps,reset-active-low;
 	vreg_emac_phy-supply = <&rtl_vreg>;
 	snps,reset-delays-us = <1000 40 150000>;
 };
