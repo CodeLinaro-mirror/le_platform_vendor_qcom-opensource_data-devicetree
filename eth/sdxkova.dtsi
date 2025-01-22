@@ -344,7 +344,7 @@
 
 		queue0 {
 			snps,dcb-algorithm;
-			snps,fifo_depth = <7680>;
+			snps,fifo_depth = <14336>;
 			snps,map-to-dma-channel = <0x1>;
 			qcom,ipa_offload;
 		};
@@ -352,7 +352,7 @@
 		queue1 {
 			snps,dcb-algorithm;
 			snps,map-to-dma-channel = <0x1>;
-			snps,fifo_depth = <512>;
+			snps,fifo_depth = <2048>;
 			snps,threshold_byte = <128>;
 		};
 	};
@@ -621,8 +621,8 @@
 
 		snps,tso;
 		snps,pbl = <32>;
-		rx-fifo-depth = <8192>;
-		tx-fifo-depth = <8192>;
+		rx-fifo-depth = <16384>;
+		tx-fifo-depth = <16384>;
 		snps,mtl-rx-config = <&mtl_rxeth1_setup>;
 		snps,mtl-tx-config = <&mtl_txeth1_setup>;
 
