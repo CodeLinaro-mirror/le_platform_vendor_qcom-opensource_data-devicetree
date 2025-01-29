@@ -27,12 +27,25 @@
 	};
 };
 
-&ethqos_hw1 {
+&emac0 {
 	status = "ok";
+	phy-mode = "usxgmii";
+	snps,reset-gpio = <&tlmm 96 1>;
+	snps,reset-delays-us = <1000 100000 221000>;
+	managed = "auto";
+	eth-c45-mdio-probe;
+	snps,reset-active-low;
 	vreg_emac_phy-supply = <&aqr_vreg>;
 };
 
-&ethqos_hw2 {
+&emac1 {
 	status = "ok";
+	snps,reset-active-low;
+	snps,reset-delays-us = <1000 40 150000>;
+	phy-mode = "usxgmii";
+	managed = "auto";
+	eth-c45-mdio-probe;
+	qcom,phy-intr-redirect = <&tlmm 109 IRQ_TYPE_EDGE_FALLING>;
+	snps,reset-gpio = <&tlmm 108 1>;
 	vreg_emac_phy-supply = <&rtl_vreg>;
 };
