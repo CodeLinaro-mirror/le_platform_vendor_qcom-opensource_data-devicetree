@@ -1,0 +1,634 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+ */
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/clock/qcom,sdx75-gcc.h>
+#include <dt-bindings/clock/qcom,rpmh.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/interconnect/qcom,sdx75.h>
+
+&tlmm {
+	emac {
+		emac0_mdc_active: emac0_mdc_active {
+			mux {
+				pins = "gpio94";
+				function = "eth0_mdc";
+			};
+
+			config {
+				pins = "gpio94";
+				bias-pull-up;
+				drive-strength = <16>;
+			};
+		};
+
+		emac0_mdc_inactive: emac0_mdc_inactive {
+			mux {
+				pins = "gpio94";
+				function = "eth0_mdc";
+			};
+
+			config {
+				pins = "gpio94";
+				bias-pull-down;
+				drive-strength = <2>;
+			};
+		};
+
+		emac0_mdio_active: emac0_mdio_active {
+			mux {
+				pins = "gpio95";
+				function = "eth0_mdio";
+			};
+
+			config {
+				pins = "gpio95";
+				bias-pull-up;
+				drive-strength = <16>;
+			};
+		};
+
+		emac0_mdio_inactive: emac0_mdio_inactive {
+			mux {
+				pins = "gpio95";
+				function = "eth0_mdio";
+			};
+
+			config {
+				pins = "gpio95";
+				bias-pull-down;
+				drive-strength = <2>;
+			};
+		};
+
+		emac0_pin_phy_intr_active: emac0_pin_phy_intr_active {
+			mux {
+			pins = "gpio97";
+			function = "sgmii_phy_intr0_n";
+		};
+
+			config {
+				pins = "gpio97";
+				drive-strength = <8>; /* 8 mA */
+				bias-pull-up; /* NO PULL*/
+			};
+		};
+
+		emac0_pin_phy_intr_inactive: emac0_pin_phy_intr_inactive {
+			mux {
+			pins = "gpio97";
+			function = "sgmii_phy_intr0_n";
+		};
+
+			config {
+				pins = "gpio97";
+				drive-strength = <2>; /* 8 mA */
+				bias-pull-down; /* NO PULL*/
+			};
+		};
+
+		emac0_phy_reset_state_active: emac0_phy_reset_state_active {
+			mux {
+				pins = "gpio96";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio96";
+				bias-pull-up;
+				drive-strength = <16>;
+			};
+		};
+
+		emac0_phy_reset_state_inactive: emac0_phy_reset_state_inactive {
+			mux {
+				pins = "gpio96";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio96";
+				bias-pull-down;
+				drive-strength = <2>;
+				input-enable;
+			};
+		};
+
+		emac0_ptp_aux_ts_i_0: emac0_ptp_aux_ts_i_0 {
+			mux {
+				pins = "gpio83";
+				function = "emac0_ptp";
+			};
+
+			config {
+				pins = "gpio83";
+				bias-pull-down;
+				input-enable;
+			};
+		};
+
+		emac0_ptp_aux_ts_i_1: emac0_ptp_aux_ts_i_1 {
+			mux {
+				pins = "gpio89";
+				function = "emac0_ptp";
+			};
+
+			config {
+				pins = "gpio89";
+				bias-pull-down;
+				input-enable;
+			};
+		};
+
+		emac0_ptp_aux_ts_i_2: emac0_ptp_aux_ts_i_2 {
+			mux {
+				pins = "gpio84";
+				function = "emac0_ptp";
+			};
+
+			config {
+				pins = "gpio84";
+				bias-pull-down;
+				input-enable;
+			};
+		};
+
+		emac0_ptp_aux_ts_i_3: emac0_ptp_aux_ts_i_3 {
+			mux {
+				pins = "gpio85";
+				function = "emac0_ptp";
+			};
+
+			config {
+				pins = "gpio85";
+				bias-pull-down;
+				input-enable;
+			};
+		};
+
+		emac1_mdc_active: emac1_mdc_active {
+			mux {
+				pins = "gpio106";
+				function = "eth1_mdc";
+			};
+
+			config {
+				pins = "gpio106";
+				bias-pull-up;
+				drive-strength = <16>;
+			};
+		};
+
+		emac1_mdc_inactive: emac1_mdc_inactive {
+			mux {
+				pins = "gpio106";
+				function = "eth1_mdc";
+			};
+
+			config {
+				pins = "gpio106";
+				bias-pull-down;
+				drive-strength = <2>;
+			};
+		};
+
+		emac1_mdio_active: emac1_mdio_active {
+			mux {
+				pins = "gpio107";
+				function = "eth1_mdio";
+			};
+
+			config {
+				pins = "gpio107";
+				bias-pull-up;
+				drive-strength = <16>;
+			};
+		};
+
+		emac1_mdio_inactive: emac1_mdio_inactive {
+			mux {
+				pins = "gpio107";
+				function = "eth1_mdio";
+			};
+
+			config {
+				pins = "gpio107";
+				bias-pull-down;
+				drive-strength = <2>;
+			};
+		};
+
+		emac1_pin_phy_intr_active: emac1_pin_phy_intr_active {
+			mux {
+				pins = "gpio109";
+				function = "sgmii_phy_intr1_n";
+			};
+
+			config {
+				pins = "gpio109";
+				drive-strength = <8>; /* 8 mA */
+				bias-pull-up; /* NO PULL*/
+			};
+		};
+
+		emac1_pin_phy_intr_inactive: emac1_pin_phy_intr_inactive {
+			mux {
+				pins = "gpio109";
+				function = "sgmii_phy_intr1_n";
+			};
+
+			config {
+				pins = "gpio109";
+				drive-strength = <2>; /* 8 mA */
+				bias-pull-down; /* NO PULL*/
+			};
+		};
+
+		emac1_phy_reset_state_active: emac1_phy_reset_state_active {
+			mux {
+				pins = "gpio108";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio108";
+				bias-pull-up;
+				drive-strength = <16>;
+			};
+		};
+
+		emac1_phy_reset_state_inactive: emac1_phy_reset_state_inactive {
+			mux {
+				pins = "gpio108";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio108";
+				bias-pull-down;
+				drive-strength = <2>;
+				input-enable;
+			};
+		};
+	};
+};
+&soc {
+	ioss: qcom,ioss {
+		compatible = "qcom,ioss-v2";
+		qcom,line_rate_for_llcc = <10000>;
+	};
+
+	ioss_emac0_rx: iemac_rx@emac0 {
+		qcom,dir-rx;
+		qcom,rx-filter-be;
+
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+	ioss_emac0_tx: iemac_tx@emac0 {
+		qcom,dir-tx;
+
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+	emac0_mtl_rx_setup: emac0_rx-queues-config {
+		snps,rx-queues-to-use = <4>;
+		snps,rx-sched-sp;
+		snps,mka_mcbcq_filtering;
+
+		queue0 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <14336>;
+			snps,map-to-dma-channel = <0x1>;
+			qcom,ipa_offload;
+		};
+
+		queue1 {
+			snps,dcb-algorithm;
+			snps,map-to-dma-channel = <0x1>;
+			snps,fifo_depth = <2048>;
+			snps,threshold_byte = <128>;
+			snps,route-ptp;
+		};
+
+		queue2 {
+			snps,dcb-algorithm;
+			snps,map-to-dma-channel = <0x1>;
+			snps,fifo_depth = <256>;
+			snps,skip-queue;
+		};
+
+		queue3 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <3328>;
+			snps,map-to-dma-channel = <0x1>;
+			qcom,ipa_offload;
+		};
+	};
+
+	emac0_mtl_tx_setup: emac0_tx-queues-config {
+		snps,tx-queues-to-use = <4>;
+		snps,tx-sched-sp;
+		queue0 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <8192>;
+			qcom,ipa_offload;
+		};
+
+		queue1 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <8192>;
+		};
+
+		queue2 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <256>;
+			snps,skip-queue;
+		};
+
+		queue3 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <3328>;
+			qcom,ipa_offload;
+		};
+	};
+
+	emac0_stmmac_axi_setup: emac0_stmmac-axi-config {
+		snps,wr_osr_lmt = <15>;
+		snps,rd_osr_lmt = <15>;
+		snps,axi_kbbe;
+		/* If FB is disabled, the AXI master chooses
+		 * a burst length of any value less than the
+		 * maximum enabled burst length
+		 * (all lesser burst length enables are redundant).
+		 */
+		snps,blen = <0 0 0 0 0 0 0>;
+	};
+
+	emac0: qcom,emac0@23040000 {
+		compatible = "qcom,stmmac-ethqos", "snps,dwxgmac", "qcom,ioss-v2-device";
+		qcom,arm-smmu;
+		qcom,ioss = <&ioss>;
+		qcom,ioss_instance = <0>;
+		qcom,ioss_channels =
+			<&ioss_emac0_rx>,
+			<&ioss_emac0_tx>;
+		qcom,ioss-wol-phy;
+		qcom,iommu-group = <&ipa_eth_group1>;
+		dma-coherent;
+		iommus = <&apps_smmu 0x41 0x0>,
+			 <&apps_smmu 0x42 0x0>,
+			 <&apps_smmu 0x43 0x0>,
+			 <&apps_smmu 0x44 0x0>,
+			 <&apps_smmu 0x45 0x0>,
+			 <&apps_smmu 0x46 0x0>,
+			 <&apps_smmu 0x49 0x0>,
+			 <&apps_smmu 0x4A 0x0>,
+			 <&apps_smmu 0x4B 0x0>,
+			 <&apps_smmu 0x4C 0x0>,
+			 <&apps_smmu 0x4D 0x0>,
+			 <&apps_smmu 0x4E 0x0>;
+
+		reg = <0x00 0x23040000 0x00 0x14000>,
+			<0x00 0x230BF000 0x00 0x1000>,
+			<0x0 0x23054000 0x0 0x5100>,
+			<0x0 0x00FFA000 0x0 0xE10>;
+		reg-names = "stmmaceth", "rgmii","xpcs","serdes";
+
+		clocks =<&gcc GCC_EEE_EMAC0_CLK>,
+			<&gcc GCC_EMAC0_AXI_CLK>,
+			<&gcc GCC_EMAC0_CC_SGMIIPHY_RX_CLK>,
+			<&gcc GCC_EMAC0_CC_SGMIIPHY_TX_CLK>,
+			<&gcc GCC_EMAC0_PHY_AUX_CLK>,
+			<&gcc GCC_EMAC0_PTP_CLK>,
+			<&gcc GCC_EMAC0_RGMII_CLK>,
+			<&gcc GCC_EMAC0_RPCS_RX_CLK>,
+			<&gcc GCC_EMAC0_RPCS_TX_CLK>,
+			<&gcc GCC_EMAC0_SLV_AHB_CLK>,
+			<&gcc GCC_EMAC0_XGXS_RX_CLK>,
+			<&gcc GCC_EMAC0_XGXS_TX_CLK>,
+			<&gcc GCC_EMAC0_CC_SGMIIPHY_RX_CLK_SRC>,
+			<&gcc GCC_EMAC0_CC_SGMIIPHY_TX_CLK_SRC>,
+			<&gcc GCC_EMAC0_SGMIIPHY_MAC_RCLK_SRC>,
+			<&gcc GCC_EMAC0_SGMIIPHY_MAC_TCLK_SRC>,
+			<&emac0_sgmiiphy_rclk>,
+			<&emac0_sgmiiphy_tclk>,
+			<&emac0_sgmiiphy_mac_rclk>,
+			<&emac0_sgmiiphy_mac_tclk>,
+			<&gcc GCC_EMAC_0_CLKREF_EN>;
+		clock-names = "eee", "stmmaceth", "sgmii_rx",
+		"sgmii_tx", "phyaux", "ptp_ref", "rgmii",
+		"pcs_rx", "pcs_tx", "pclk", "xgxs_rx",
+		"xgxs_tx", "sgmii_rclk_src", "sgmii_tclk_src",
+		"sgmii_mac_rclk_src", "sgmii_mac_tclk_src", "sgmii_rclk",
+		"sgmii_tclk", "sgmii_mac_rclk", "sgmii_mac_tclk","sgmi_ref";
+
+		snps,ptp-ref-clk-rate = <230400000>;
+		snps,ptp-req-clk-rate = <125000000>;
+
+		interrupts-extended = <&intc GIC_SPI 360 IRQ_TYPE_LEVEL_HIGH>,
+					<&tlmm 97 IRQ_TYPE_EDGE_FALLING>;
+		interrupt-names = "macirq","phy-intr";
+
+		enable-pfc;
+
+		vreg_a_sgmii_1p2-supply = <&L1B>;
+		vreg_a_sgmii_0p9-supply = <&L4B>;
+		gdsc_emac-supply = <&gcc_emac0_gdsc>;
+
+		snps,crc_strip;
+
+		pinctrl-names = "default","init";
+
+		pinctrl-0 = <&emac0_mdc_active
+			     &emac0_mdio_active
+			     &emac0_pin_phy_intr_active
+			     &emac0_phy_reset_state_active>;
+		pinctrl-1 = <&emac0_mdc_inactive
+			     &emac0_mdio_inactive
+			     &emac0_pin_phy_intr_inactive
+			     &emac0_phy_reset_state_inactive>;
+
+		mac-address = [00 55 7B B5 7D f8];
+
+		interconnect-names = "axi_icc_path", "apb_icc_path";
+		interconnects = <&system_noc MASTER_EMAC_0 &mc_virt SLAVE_EBI1>,
+				<&gem_noc MASTER_APPSS_PROC &system_noc SLAVE_ETH0_CFG>;
+
+		snps,tso;
+		snps,pbl = <32>;
+		tx-fifo-depth = <49152>;
+		rx-fifo-depth = <20480>;
+		snps,mtl-rx-config = <&emac0_mtl_rx_setup>;
+		snps,mtl-tx-config = <&emac0_mtl_tx_setup>;
+
+		snps,axi-config = <&emac0_stmmac_axi_setup>;
+		status = "disabled";
+	};
+
+	ioss_emac1_rx: iemac_rx@emac1 {
+		qcom,dir-rx;
+		qcom,rx-filter-be;
+
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+	ioss_emac1_tx: iemac_tx@emac1 {
+		qcom,dir-tx;
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+	emac1_mtl_rx_setup: emac1_rx-queues-config {
+		snps,rx-queues-to-use = <2>;
+		snps,rx-sched-sp;
+		snps,mka_mcbcq_filtering;
+
+		queue0 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <14336>;
+			snps,map-to-dma-channel = <0x1>;
+			qcom,ipa_offload;
+		};
+
+		queue1 {
+			snps,dcb-algorithm;
+			snps,map-to-dma-channel = <0x1>;
+			snps,fifo_depth = <2048>;
+			snps,threshold_byte = <128>;
+		};
+	};
+
+	emac1_mtl_tx_setup: emac1_tx-queues-config {
+		snps,tx-queues-to-use = <2>;
+		snps,tx-sched-sp;
+		queue0 {
+			snps,dcb-algorithm;
+			qcom,ipa_offload;
+		};
+
+		queue1 {
+			snps,dcb-algorithm;
+		};
+	};
+
+	emac1_stmmac_axi_setup: emac1_stmmac-axi-config {
+		snps,wr_osr_lmt = <15>;
+		snps,rd_osr_lmt = <15>;
+		snps,axi_kbbe;
+		/* If FB is disabled, the AXI master chooses
+		 * a burst length of any value less than the
+		 * maximum enabled burst length
+		 * (all lesser burst length enables are redundant).
+		 */
+		snps,blen = <0 0 0 0 0 0 0>;
+	};
+
+	emac1: qcom,emac1@22FC0000 {
+		compatible = "qcom,stmmac-ethqos", "snps,dwxgmac", "qcom,ioss-v2-device";
+		qcom,arm-smmu;
+		qcom,ioss = <&ioss>;
+		qcom,ioss_instance = <1>;
+		qcom,iommu-group = <&ipa_eth_group2>;
+		dma-coherent;
+		iommus = <&apps_smmu 0x60 0xf>;
+
+		qcom,ioss_channels =
+			<&ioss_emac1_rx>,
+			<&ioss_emac1_tx>;
+
+		qcom,ioss-wol-phy;
+
+		reg = <0x00 0x22FC0000 0x00 0x14000>,
+			<0x00 0x2303F000 0x00 0x1000>,
+			<0x00 0x22FD4000 0x00 0x5100>,
+			<0x00 0x00FFB000 0x00 0xE10>;
+		reg-names = "stmmaceth", "rgmii","xpcs","serdes";
+		clocks = <&gcc GCC_EEE_EMAC1_CLK>,
+			<&gcc GCC_EMAC1_AXI_CLK>,
+			<&gcc GCC_EMAC1_CC_SGMIIPHY_RX_CLK>,
+			<&gcc GCC_EMAC1_CC_SGMIIPHY_TX_CLK>,
+			<&gcc GCC_EMAC1_PHY_AUX_CLK>,
+			<&gcc GCC_EMAC1_RPCS_RX_CLK>,
+			<&gcc GCC_EMAC1_RPCS_TX_CLK>,
+			<&gcc GCC_EMAC1_SLV_AHB_CLK>,
+			<&gcc GCC_EMAC1_XGXS_RX_CLK>,
+			<&gcc GCC_EMAC1_XGXS_TX_CLK>,
+			<&gcc GCC_EMAC1_CC_SGMIIPHY_RX_CLK_SRC>,
+			<&gcc GCC_EMAC1_CC_SGMIIPHY_TX_CLK_SRC>,
+			<&gcc GCC_EMAC1_SGMIIPHY_MAC_RCLK_SRC>,
+			<&gcc GCC_EMAC1_SGMIIPHY_MAC_TCLK_SRC>,
+			<&emac1_sgmiiphy_rclk>,
+			<&emac1_sgmiiphy_tclk>,
+			<&emac1_sgmiiphy_mac_rclk>,
+			<&emac1_sgmiiphy_mac_tclk>,
+			<&gcc GCC_EMAC_1_CLKREF_EN>;
+		clock-names = "eee", "stmmaceth", "sgmii_rx",
+		"sgmii_tx", "phyaux",
+		"pcs_rx", "pcs_tx", "pclk", "xgxs_rx",
+		"xgxs_tx", "sgmii_rclk_src", "sgmii_tclk_src",
+		"sgmii_mac_rclk_src", "sgmii_mac_tclk_src", "sgmii_rclk",
+		"sgmii_tclk", "sgmii_mac_rclk", "sgmii_mac_tclk","sgmi_ref";
+
+		interrupts-extended = <&intc GIC_SPI 445 IRQ_TYPE_LEVEL_HIGH>, <&tlmm 109 IRQ_TYPE_EDGE_FALLING>;
+
+		interrupt-names = "macirq", "phy-intr";
+
+		vreg_a_sgmii_1p2-supply = <&L1B>;
+		vreg_a_sgmii_0p9-supply = <&L4B>;
+		gdsc_emac-supply = <&gcc_emac1_gdsc>;
+		pinctrl-names = "default","init";
+
+		pinctrl-0 = <&emac1_mdc_active
+			     &emac1_mdio_active
+			     &emac1_pin_phy_intr_active
+			     &emac1_phy_reset_state_active>;
+		pinctrl-1 = <&emac1_mdc_inactive
+			     &emac1_mdio_inactive
+			     &emac1_pin_phy_intr_inactive
+			     &emac1_phy_reset_state_inactive>;
+
+		snps,crc_strip;
+
+		interconnect-names = "axi_icc_path", "apb_icc_path";
+		interconnects = <&system_noc MASTER_EMAC_1 &mc_virt SLAVE_EBI1>,
+				<&gem_noc MASTER_APPSS_PROC &system_noc SLAVE_ETH1_CFG>;
+
+		snps,tso;
+		snps,pbl = <32>;
+		rx-fifo-depth = <16384>;
+		tx-fifo-depth = <16384>;
+		snps,mtl-rx-config = <&emac1_mtl_rx_setup>;
+		snps,mtl-tx-config = <&emac1_mtl_tx_setup>;
+
+		snps,axi-config = <&emac1_stmmac_axi_setup>;
+		mac-address = [00 55 7B B5 7D f7];
+		status = "disabled";
+
+	};
+};

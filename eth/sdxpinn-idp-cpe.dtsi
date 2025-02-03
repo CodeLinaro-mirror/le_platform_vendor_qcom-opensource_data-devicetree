@@ -1,0 +1,51 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+ */
+
+#include "sdxpinn.dtsi"
+
+&soc {
+	aqr_vreg: aqr_vreg {
+		compatible = "qti-regulator-fixed";
+		regulator-name = "phy0_vreg";
+		gpio = <&tlmm 86 GPIO_ACTIVE_HIGH>;
+		regulator-min-microvolt = <700000>;
+		regulator-max-microvolt = <700000>;
+		enable-active-high;
+		regulator-enable-ramp-delay = <10000>;
+	};
+
+	rtl_vreg: rtl_vreg {
+		compatible = "qti-regulator-fixed";
+		regulator-name = "phy1_vreg";
+		gpio = <&tlmm 88 GPIO_ACTIVE_HIGH>;
+		regulator-min-microvolt = <1050000>;
+		regulator-max-microvolt = <1050000>;
+		enable-active-high;
+		regulator-enable-ramp-delay = <80000>;
+	};
+};
+
+&emac0 {
+	status = "ok";
+	phy-mode = "usxgmii";
+	snps,reset-gpio = <&tlmm 96 1>;
+	snps,reset-delays-us = <1000 100000 221000>;
+	managed = "auto";
+	eth-c45-mdio-probe;
+	snps,reset-active-low;
+	vreg_emac_phy-supply = <&aqr_vreg>;
+};
+
+&emac1 {
+	status = "ok";
+	snps,reset-active-low;
+	snps,reset-delays-us = <1000 40 150000>;
+	phy-mode = "usxgmii";
+	managed = "auto";
+	eth-c45-mdio-probe;
+	qcom,phy-intr-redirect = <&tlmm 109 IRQ_TYPE_EDGE_FALLING>;
+	snps,reset-gpio = <&tlmm 108 1>;
+	vreg_emac_phy-supply = <&rtl_vreg>;
+};

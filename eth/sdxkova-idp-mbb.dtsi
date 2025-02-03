@@ -1,0 +1,29 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+ */
+
+#include "sdxkova.dtsi"
+
+&soc {
+	rtl_vreg: rtl_vreg {
+		compatible = "qti-regulator-fixed";
+		regulator-name = "rtl_vreg";
+		gpio = <&tlmm 86 GPIO_ACTIVE_HIGH>;
+		regulator-min-microvolt = <700000>;
+		regulator-max-microvolt = <700000>;
+		enable-active-high;
+		regulator-enable-ramp-delay = <80000>;
+	};
+};
+
+&emac0 {
+	status = "ok";
+	phy-mode = "usxgmii";
+	snps,reset-gpio = <&tlmm 96 1>;
+	managed = "auto";
+	eth-c45-mdio-probe;
+	snps,reset-active-low;
+	vreg_emac_phy-supply = <&rtl_vreg>;
+	snps,reset-delays-us = <1000 40 150000>;
+};
