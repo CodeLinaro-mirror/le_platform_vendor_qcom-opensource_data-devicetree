@@ -1,0 +1,128 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+ */
+
+#include "ipa.dtsi"
+
+&soc{
+	qcom,rmnet-ipa {
+		/delete-property/ qcom,ipa-advertise-sg-support;
+		/delete-property/ qcom,ipa-napi-enable;
+	};
+	/delete-node/ qcom,ipa_fws;
+	/delete-node/ ipa_eth_group2;
+};
+
+&ipa_eth_group1 {
+	qcom,iommu-dma-addr-pool = <0x87f10000 0x07f00000>;
+	qcom,iommu-dma = "atomic";
+};
+
+&ipa_eth_group2 {
+	status = "disabled";
+};
+
+&ipa_hw{
+	#address-cells = <0x01>;
+	#size-cells = <0x01>;
+	reg =
+		<0x3e00000 0x84000>,
+		<0x3e04000 0xfc000>;
+	qcom,ipa-cfg-offset = <0x0140000>;
+	interrupts =
+		<0 314 IRQ_TYPE_LEVEL_HIGH>,
+		<0 208 IRQ_TYPE_LEVEL_HIGH>;
+	qcom,ipa-hw-ver = <23>; /* IPA core version = IPAv5.2 */
+	qcom,ipa-config-is-auto;
+	qcom,wlan-ce-db-over-pcie;
+	qcom,wan-rx-ring-size = <96>;
+	qcom,lan-rx-ring-size = <96>;
+	qcom,max_num_smmu_cb = <4>;
+	qcom,fast-boot-values = <0x3>;
+
+	interconnects = <&aggre_noc MASTER_IPA &mem_noc SLAVE_LLCC>,
+				  <&mc_virt MASTER_LLCC &mc_virt SLAVE_EBI1>,
+				  <&mem_noc MASTER_APPSS_PROC &cnoc_main SLAVE_IPA_CFG>;
+
+	interconnect-names = "ipa_to_llcc", "llcc_to_ebi1", "appss_to_ipa";
+
+
+	/* No vote */
+	qcom,no-vote =
+		<0 0 0 0 0 0>;
+
+	/* SVS2 */
+	qcom,svs2 =
+		<18000 0 295000 1800000 0 76800>;
+
+	/* SVS */
+	qcom,svs =
+		<200000 0 1200000 2800000 0 150000>;
+
+	/* NOMINAL */
+	qcom,nominal =
+		<670000 0 2400000 5500000 0 400000>;
+
+	/* TURBO */
+	qcom,turbo =
+		<1380000 0 3600000 5500000 0 400000>;
+
+	qcom,bus-vector-names = "MIN", "SVS2", "SVS", "NOMINAL",
+		"TURBO";
+	qcom,throughput-threshold = <800 2500 5000>;
+	qcom,scaling-exceptions = <>;
+
+	/delete-property/ mboxes;
+	/delete-property/ qcom,use-64-bit-dma-mask;
+	/delete-property/ qcom,ulso-supported;
+	/delete-property/ qcom,ulso-ip-id-min-linux-val;
+	/delete-property/ qcom,ulso-ip-id-max-linux-val;
+	/delete-property/ qcom,ulso-ip-id-min-windows-val;
+	/delete-property/ qcom,ulso-ip-id-max-windows-val;
+	/delete-property/ qcom,register-collection-on-crash;
+	/delete-property/ qcom,testbus-collection-on-crash;
+	/delete-property/ qcom,non-tn-collection-on-crash;
+	/delete-property/ qcom,filter-start-id;
+	/delete-property/ qcom,lan-rx-napi;
+	/delete-property/ qcom,tx-napi;
+	/delete-property/ qcom,tx-poll;
+	/delete-property/ qcom,lan-coal-enable;
+	/delete-property/ nvmem-cell-names;
+	/delete-property/ qcom,wan-use-skb-page;
+	/delete-node/ ipa_wlan_group;
+	/delete-node/ ipa_smmu_wlan1;
+	/delete-node/ ipa_smmu_wlan2;
+	/delete-node/ ipa_smmu_eth1;
+
+	ipa_smmu_ap {
+		iommus = <&apps_smmu 0x000 0x0>;
+		qcom,iommu-dma-addr-pool = <0x20000000 0x20000000>;
+		qcom,additional-mapping =
+			/* modem tables in IMEM */
+			<0x14691000 0x14691000 0x2000>;
+		qcom,iommu-dma = "atomic";
+		qcom,ipa-q6-smem-size = <36864>;
+		/delete-property/ dma-coherent;
+	};
+
+	ipa_smmu_wlan {
+		iommus = <&apps_smmu 0x001 0x0>;
+		qcom,iommu-dma = "atomic";
+		/delete-property/ qcom,shared-cb;
+		/delete-property/ qcom,iommu-group;
+		/delete-property/ dma-coherent;
+	};
+
+	ipa_smmu_uc {
+		iommus = <&apps_smmu 0x002 0x0>;
+		qcom,iommu-dma-addr-pool = <0x20000000 0x20000000>;
+		/delete-property/ dma-coherent;
+	};
+
+	ipa_smmu_eth {
+		compatible = "qcom,ipa-smmu-eth1-cb";
+		iommus = <&apps_smmu 0x003 0x0>;
+		/delete-property/dma-coherent;
+	};
+};

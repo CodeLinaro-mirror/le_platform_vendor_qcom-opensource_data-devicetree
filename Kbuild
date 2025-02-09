@@ -1,5 +1,5 @@
-ifeq ($(CONFIG_ARCH_SDXKOVA),y)
-dtbo-y += ./ipa/sdxkova-ipa.dtbo
+ifeq ($(CONFIG_ARCH_SA510M),y)
+dtbo-y += ./ipa/sa510m-ipa.dtbo
 endif
 
 always-y	:= $(dtb-y) $(dtbo-y)
