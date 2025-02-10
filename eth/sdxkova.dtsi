@@ -440,9 +440,8 @@
 		snps,ptp-ref-clk-rate = <230400000>;
 		snps,ptp-req-clk-rate = <125000000>;
 
-		interrupts-extended = <&intc GIC_SPI 360 IRQ_TYPE_LEVEL_HIGH>,
-					<&tlmm 97 IRQ_TYPE_EDGE_FALLING>;
-		interrupt-names = "macirq","phy-intr";
+		interrupts-extended = <&intc GIC_SPI 360 IRQ_TYPE_LEVEL_HIGH>;
+		interrupt-names = "macirq";
 
 		enable-pfc;
 
@@ -478,6 +477,12 @@
 
 		snps,axi-config = <&emac0_stmmac_axi_setup>;
 		status = "disabled";
+
+		emac0_mdio: emac0_mdio {
+			compatible = "snps,dwmac-mdio";
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
 	};
 
 	ioss_emac1_rx: iemac_rx@emac1 {
@@ -595,9 +600,9 @@
 		"sgmii_mac_rclk_src", "sgmii_mac_tclk_src", "sgmii_rclk",
 		"sgmii_tclk", "sgmii_mac_rclk", "sgmii_mac_tclk","sgmi_ref";
 
-		interrupts-extended = <&intc GIC_SPI 445 IRQ_TYPE_LEVEL_HIGH>, <&tlmm 109 IRQ_TYPE_EDGE_FALLING>;
+		interrupts-extended = <&intc GIC_SPI 445 IRQ_TYPE_LEVEL_HIGH>;
 
-		interrupt-names = "macirq", "phy-intr";
+		interrupt-names = "macirq";
 
 		vreg_a_sgmii_1p2-supply = <&L1B>;
 		vreg_a_sgmii_0p9-supply = <&L4B>;
@@ -630,5 +635,10 @@
 		mac-address = [00 55 7B B5 7D f7];
 		status = "disabled";
 
+		emac1_mdio: emac1_mdio {
+		    compatible = "snps,dwmac-mdio";
+		    #address-cells = <1>;
+		    #size-cells = <0>;
+		};
 	};
 };
