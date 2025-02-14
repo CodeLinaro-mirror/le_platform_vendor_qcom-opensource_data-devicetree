@@ -24,6 +24,6 @@
 	compatible = "qcom,sa510m-idp",
 			"qcom,sa510m", "qcom,idp";
 
-	qcom,msm-id = <570 0x10000>, <571 0x10000>;
-	qcom,board-id = <0x10008 0x103>, <0x10008 0x203>;
+	qcom,msm-id = <697 0x10000>;
+	qcom,board-id = <0x22 0x200>, <0x22 0x300>;
 };
