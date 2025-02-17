@@ -1,0 +1,30 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) 2025 Qualcomm Innovation Center, Inc. All rights reserved.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/soc/qcom,rpmh-rsc.h>
+#include <dt-bindings/soc/qcom,ipcc.h>
+#include <dt-bindings/clock/qcom,rpmh.h>
+#include <dt-bindings/clock/qcom,gcc-sdxbaagha.h>
+#include <dt-bindings/regulator/qcom,rpmh-regulator-levels.h>
+#include <dt-bindings/interconnect/qcom,icc.h>
+#include <dt-bindings/interconnect/qcom,sdxbaagha.h>
+#include <dt-bindings/spmi/spmi.h>
+
+#include "sa510m-eth.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. SA510M IDP";
+	compatible = "qcom,sa510m-idp",
+			"qcom,sa510m", "qcom,idp";
+
+	qcom,msm-id = <697 0x10000>;
+	qcom,board-id = <0x22 0x200>, <0x22 0x300>;
+};
+

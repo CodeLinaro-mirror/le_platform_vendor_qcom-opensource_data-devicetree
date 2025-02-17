@@ -1,0 +1,118 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) 2025 Qualcomm Innovation Center, Inc. All rights reserved.
+ */
+
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/soc/qcom,rpmh-rsc.h>
+#include <dt-bindings/soc/qcom,ipcc.h>
+#include <dt-bindings/clock/qcom,rpmh.h>
+#include <dt-bindings/clock/qcom,gcc-sdxbaagha.h>
+#include <dt-bindings/regulator/qcom,rpmh-regulator-levels.h>
+#include <dt-bindings/interconnect/qcom,icc.h>
+#include <dt-bindings/interconnect/qcom,sdxbaagha.h>
+#include <dt-bindings/spmi/spmi.h>
+
+&soc {
+	marvell_vreg: marvell_vreg {
+		compatible = "qti-regulator-fixed";
+		regulator-name = "napa_vreg";
+		gpio = <&tlmm 108 GPIO_ACTIVE_HIGH>;
+		regulator-min-microvolt = <1050000>;
+		regulator-max-microvolt = <1050000>;
+		enable-active-high;
+		regulator-enable-ramp-delay = <80000>;
+	};
+
+	mtl_rx_setup: rx-queues-config {
+		snps,rx-queues-to-use = <2>;
+		snps,rx-sched-sp;
+
+		queue0 {
+			snps,dcb-algorithm;
+			snps,route-up;
+			snps,map-to-dma-channel = <0x0>;
+		};
+
+		queue1 {
+			snps,dcb-algorithm;
+			snps,map-to-dma-channel = <0x1>;
+			snps,route-ptp;
+		};
+	};
+
+	mtl_tx_setup: tx-queues-config {
+		snps,tx-queues-to-use = <2>;
+		snps,tx-sched-sp;
+		queue0 {
+			snps,dcb-algorithm;
+		};
+
+		queue1 {
+			snps,dcb-algorithm;
+		};
+	};
+
+	ethqos_hw: qcom,ethernet@23040000 {
+		compatible = "qcom,stmmac-ethqos", "snps,dwmac-4.20a";
+		qcom,arm-smmu;
+		iommus = <&apps_smmu 0x100 0xf>;
+
+		reg = <0x23040000 0x10000>,
+				<0x23056000 0x100>,
+				<0x00FF6000 0xE10>;
+
+		reg-names = "stmmaceth", "rgmii", "serdes";
+		clocks = <&gcc GCC_EMAC0_AXI_CLK>,
+				<&gcc GCC_EMAC0_SLV_AHB_CLK>,
+				<&gcc GCC_EMAC0_PTP_CLK>,
+				<&gcc GCC_EMAC0_PHY_AUX_CLK>,
+				<&gcc GCC_EMAC_0_CLKREF_EN>;
+		clock-names = "stmmaceth", "pclk", "ptp_ref", "phyaux", "sgmi_ref";
+		snps,ptp-ref-clk-rate = <125000000>;
+		snps,ptp-req-clk-rate = <57600000>;
+		interrupts-extended = <&intc GIC_SPI 261 IRQ_TYPE_LEVEL_HIGH>;
+
+		interrupt-names = "macirq";
+
+		snps,tso;
+		snps,pbl = <32>;
+		snps,rxpbl = <16>;
+		rx-fifo-depth = <8192>;
+		tx-fifo-depth = <8192>;
+
+		vreg_emac_phy-supply = <&marvell_vreg>;
+		snps,mtl-rx-config = <&mtl_rx_setup>;
+		snps,mtl-tx-config = <&mtl_tx_setup>;
+
+		gdsc_emac-supply = <&gcc_emac0_gdsc>;
+		vreg_a_sgmii_1p2-supply = <&L14A>;
+		vreg_a_sgmii_0p9-supply = <&L3A>;
+
+		phy-mode = "sgmii";
+		snps,reset-gpio = <&tlmm 97 1>;
+		snps,reset-active-low;
+		snps,reset-delays-us = <0 11000 70000>;
+		pinctrl-names = "default","init";
+
+		pinctrl-0 = <&emac_mdc_active
+			     &emac_mdio_active>;
+
+		pinctrl-1 = <&emac_mdc_inactive
+			     &emac_mdio_inactive>;
+
+		snps,ps-speed = <1000>;
+		managed = "auto";
+		eth-c22-mdio-probe;
+		snps,crc_strip;
+		pcs-v3;
+		sw-dma-tx-desc-cnt = <128>;
+		sw-dma-rx-desc-cnt = <128>;
+
+		interconnect-names = "axi_icc_path", "apb_icc_path";
+		interconnects = <&aggre_noc MASTER_EMAC &mc_virt SLAVE_EBI1>,
+				<&mem_noc MASTER_APPSS_PROC &cnoc_main SLAVE_EMAC_CFG>;
+	};
+};
+
