@@ -15,6 +15,35 @@
 #include <dt-bindings/spmi/spmi.h>
 
 &soc {
+	ioss: qcom,ioss {
+                compatible = "qcom,ioss-v2";
+                qcom,max-ddr-bandwidth = <1000>;
+	};
+
+	ioss_eth_rx: iemac_rx@eth {
+                qcom,dir-rx;
+                qcom,rx-filter-be;
+
+                qcom,ring-size = <256>;
+                qcom,buff-size = <2048>;
+
+                qcom,mod-count-min = <64>;
+                qcom,mod-count-max = <64>;
+                qcom,mod-usecs-min = <30>;
+                qcom,mod-usecs-max = <60>;
+	};
+
+	ioss_eth_tx: iemac_tx@eth {
+                qcom,dir-tx;
+                qcom,ring-size = <256>;
+                qcom,buff-size = <2048>;
+
+                qcom,mod-count-min = <64>;
+                qcom,mod-count-max = <64>;
+                qcom,mod-usecs-min = <30>;
+                qcom,mod-usecs-max = <60>;
+	};
+
 	marvell_vreg: marvell_vreg {
 		compatible = "qti-regulator-fixed";
 		regulator-name = "napa_vreg";
@@ -32,7 +61,8 @@
 		queue0 {
 			snps,dcb-algorithm;
 			snps,route-up;
-			snps,map-to-dma-channel = <0x0>;
+			qcom,ipa_offload;
+			snps,map-to-dma-channel = <0x1>;
 		};
 
 		queue1 {
@@ -47,6 +77,7 @@
 		snps,tx-sched-sp;
 		queue0 {
 			snps,dcb-algorithm;
+			qcom,ipa_offload;
 		};
 
 		queue1 {
@@ -55,9 +86,16 @@
 	};
 
 	ethqos_hw: qcom,ethernet@23040000 {
-		compatible = "qcom,stmmac-ethqos", "snps,dwmac-4.20a";
+		compatible = "qcom,stmmac-ethqos", "snps,dwmac-4.20a", "qcom,ioss-v2-device;
 		qcom,arm-smmu;
+		qcom,ioss = <&ioss>;
+		qcom,ioss_instance = <0>;
+		qcom,iommu-group = <&ipa_eth_group1>;
 		iommus = <&apps_smmu 0x100 0xf>;
+
+                qcom,ioss_channels =
+                        <&ioss_eth_rx>,
+                        <&ioss_eth_tx>;
 
 		reg = <0x23040000 0x10000>,
 				<0x23056000 0x100>,
