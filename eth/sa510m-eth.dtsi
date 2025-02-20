@@ -86,7 +86,7 @@
 	};
 
 	ethqos_hw: qcom,ethernet@23040000 {
-		compatible = "qcom,stmmac-ethqos", "snps,dwmac-4.20a", "qcom,ioss-v2-device;
+		compatible = "qcom,stmmac-ethqos", "snps,dwmac-4.20a", "qcom,ioss-v2-device";
 		qcom,arm-smmu;
 		qcom,ioss = <&ioss>;
 		qcom,ioss_instance = <0>;
