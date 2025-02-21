@@ -2,7 +2,6 @@ ifeq ($(CONFIG_ARCH_SDXKOVA),y)
 dtbo-y += ./ipa/sdxkova-ipa.dtbo
 dtbo-y += ./eth/sdxkova-idp-mbb.dtbo
 dtbo-y += ./eth/sdxkova-idp-cpe.dtbo
-dtbo-y += ./eth/sdxkova-idp-mbb-v2.dtbo
 endif
 
 ifeq ($(CONFIG_ARCH_SDXPINN),y)
