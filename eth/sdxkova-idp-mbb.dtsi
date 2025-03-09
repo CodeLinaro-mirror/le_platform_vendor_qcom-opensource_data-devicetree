@@ -17,6 +17,14 @@
 	};
 };
 
+&ioss_emac0_rx {
+	qcom,compatible-ipa-configs = "default", "qos";
+};
+
+&ioss_emac0_tx {
+	qcom,compatible-ipa-configs = "default", "qos";
+};
+
 &emac0 {
 	status = "ok";
 	phy-mode = "usxgmii";
