@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) 2025 Qualcomm Innovation Center, Inc. All rights reserved.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/soc/qcom,ipcc.h>
+#include <dt-bindings/interconnect/qcom,sdx75.h>
+#include <dt-bindings/clock/qcom,sdx75-gcc.h>
+#include <dt-bindings/clock/qcom,rpmh.h>
+#include "sdxkova-512mb.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. SDXKOVA IDP MIN 512MB";
+	compatible = "qcom,sdxkova-idp", "qcom,sdxkova-rcm",
+			"qcom,sdxkova", "qcom,idp", "qcom,rcm";
+
+	qcom,msm-id = <677 0x10000>, <678 0x10000>, <679 0x10000>;
+	qcom,board-id = <0x2040022 0x202>;
+};
