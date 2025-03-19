@@ -66,9 +66,11 @@
 		};
 
 		queue1 {
-			snps,dcb-algorithm;
+			snps,avb-algorithm;
 			snps,map-to-dma-channel = <0x1>;
 			snps,route-ptp;
+			snps,route-avcp;
+			snps,priority = <0xC>;
 		};
 	};
 
