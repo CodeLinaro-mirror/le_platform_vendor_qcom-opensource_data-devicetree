@@ -284,6 +284,8 @@
 		qcom,dir-rx;
 		qcom,rx-filter-be;
 
+		qcom,ioss-traffic-type = "best-effort";
+
 		qcom,ring-size = <1024>;
 		qcom,buff-size = <2048>;
 
@@ -296,6 +298,32 @@
 	ioss_emac0_tx: iemac_tx@emac0 {
 		qcom,dir-tx;
 
+		qcom,ioss-traffic-type = "best-effort";
+
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+	ioss_emac0_qos_rx: iemac_qos_rx@emac0 {
+		qcom,dir-rx;
+		qcom,rx-filter-be;
+
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+	ioss_emac0_qos_tx: iemac_qos_tx@emac0 {
+		qcom,dir-tx;
 		qcom,ring-size = <1024>;
 		qcom,buff-size = <2048>;
 
@@ -364,6 +392,71 @@
 			snps,dcb-algorithm;
 			snps,fifo_depth = <3328>;
 			qcom,ipa_offload;
+		};
+	};
+
+	qos_mtl_rx_setup: qos-rx-queues-config {
+		qcom,config-name = "qos";
+		snps,rx-queues-to-use = <5>;
+		snps,rx-sched-sp;
+		queue0 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <14336>;
+			snps,map-to-dma-channel = <0x1>;
+			qcom,ipa_offload;
+		};
+
+		queue1 {
+			snps,dcb-algorithm;
+			snps,map-to-dma-channel = <0x1>;
+			snps,fifo_depth = <2048>;
+			snps,threshold_byte = <128>;
+			snps,route-ptp;
+		};
+
+		queue2 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <1024>;
+		};
+
+		queue3 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <1024>;
+		};
+
+		queue4 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <1024>;
+		};
+	};
+
+	qos_mtl_tx_setup: qos-tx-queues-config {
+		qcom,config-name = "qos";
+		snps,tx-queues-to-use = <6>;
+		snps,tx-sched-sp;
+		queue0 {
+			snps,dcb-algorithm;
+			qcom,ipa_offload;
+		};
+
+		queue1 {
+			snps,dcb-algorithm;
+		};
+
+		queue2 {
+			snps,dcb-algorithm;
+		};
+
+		queue3 {
+			snps,dcb-algorithm;
+		};
+
+		queue4 {
+			snps,dcb-algorithm;
+		};
+
+		queue5 {
+			snps,dcb-algorithm;
 		};
 	};
 
@@ -472,8 +565,14 @@
 		snps,pbl = <32>;
 		tx-fifo-depth = <49152>;
 		rx-fifo-depth = <20480>;
-		snps,mtl-rx-config = <&emac0_mtl_rx_setup>;
-		snps,mtl-tx-config = <&emac0_mtl_tx_setup>;
+		snps,mtl-rx-config = <&emac0_mtl_rx_setup &qos_mtl_rx_setup>;
+		snps,mtl-tx-config = <&emac0_mtl_tx_setup &qos_mtl_tx_setup>;
+
+		qos-use-skprio;
+
+		qcom,ioss_qos_channels =
+			<&ioss_emac0_qos_rx>,
+			<&ioss_emac0_qos_tx>;
 
 		snps,axi-config = <&emac0_stmmac_axi_setup>;
 		status = "disabled";
