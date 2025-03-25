@@ -28,11 +28,21 @@
 };
 
 &ioss_emac0_rx {
-	qcom,compatible-ipa-configs = "default", "qos";
+	qcom,compatible-ipa-configs = "default", "qos", "ezmesh";
+};
+
+&ioss_emac0_rx1 {
+	qcom,ioss-traffic-type = "best-effort-tagged";
+	qcom,compatible-ipa-configs = "ezmesh";
 };
 
 &ioss_emac0_tx {
-	qcom,compatible-ipa-configs = "default", "qos";
+	qcom,compatible-ipa-configs = "default", "qos", "ezmesh";
+};
+
+&ioss_emac0_tx1 {
+	qcom,ioss-traffic-type = "best-effort-tagged";
+	qcom,compatible-ipa-configs = "ezmesh";
 };
 
 &emac0 {
