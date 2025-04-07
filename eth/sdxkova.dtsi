@@ -295,6 +295,19 @@
 		qcom,mod-usecs-max = <60>;
 	};
 
+	ioss_emac0_rx1: iemac_rx1@emac0 {
+		qcom,dir-rx;
+		qcom,rx-filter-be;
+
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
 	ioss_emac0_tx: iemac_tx@emac0 {
 		qcom,dir-tx;
 
@@ -492,6 +505,7 @@
 		qcom,ioss_channels =
 			<&ioss_emac0_rx>,
 			<&ioss_emac0_tx>,
+			<&ioss_emac0_rx1>,
 			<&ioss_emac0_tx1>;
 		qcom,ioss-wol-phy;
 		qcom,iommu-group = <&ipa_eth_group1>;
