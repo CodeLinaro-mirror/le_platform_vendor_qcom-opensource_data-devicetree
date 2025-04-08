@@ -7,6 +7,7 @@
 /plugin/;
 
 #include "sdxkova-idp-cpe-v2.dtsi"
+#include "../eth/sdxkova-idp-cpe.dtsi"
 
 / {
         model = "Qualcomm Technologies, Inc. SDXKOVA IDP CPE V2";
