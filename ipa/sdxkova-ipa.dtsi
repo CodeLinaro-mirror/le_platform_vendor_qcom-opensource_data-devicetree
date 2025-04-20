@@ -40,5 +40,9 @@
 		"TURBO";
 	qcom,throughput-threshold = <2000 2500 10000>;
 	qcom,scaling-exceptions = "wdi", "1400", "4800", "10000";
+
+	ipa_smmu_ap: ipa_smmu_ap {
+		qcom,ipa-q6-smem-size = <204800>;
+	};
 };
 
