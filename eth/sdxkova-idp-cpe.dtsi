@@ -27,25 +27,66 @@
 	};
 };
 
+&ioss_emac0_rx {
+	qcom,compatible-ipa-configs = "default", "qos", "ezmesh";
+};
+
+&ioss_emac0_rx1 {
+	qcom,ioss-traffic-type = "best-effort-tagged";
+	qcom,compatible-ipa-configs = "ezmesh";
+};
+
+&ioss_emac0_tx {
+	qcom,compatible-ipa-configs = "default", "qos", "ezmesh";
+};
+
+&ioss_emac0_tx1 {
+	qcom,ioss-traffic-type = "best-effort-tagged";
+	qcom,compatible-ipa-configs = "ezmesh";
+};
+
 &emac0 {
 	status = "ok";
 	phy-mode = "usxgmii";
+	managed = "auto";
+	snps,reset-active-low;
 	snps,reset-gpio = <&tlmm 96 1>;
 	snps,reset-delays-us = <1000 100000 221000>;
-	managed = "auto";
-	eth-c45-mdio-probe;
-	snps,reset-active-low;
 	vreg_emac_phy-supply = <&aqr_vreg>;
+	phy-handle = <&emac0_phy>;
+};
+
+&emac0_mdio {
+	emac0_phy: emac0_phy {
+		compatible = "ethernet-phy-ieee802.3-c45";
+		reg = <0x0>;
+		device_type = "ethernet-phy";
+		reset-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
+		reset-assert-us = <1000>;
+		reset-deassert-us = <221000>;
+		interrupts-extended = <&tlmm 97 IRQ_TYPE_EDGE_FALLING>;
+	};
 };
 
 &emac1 {
 	status = "ok";
-	snps,reset-active-low;
-	snps,reset-delays-us = <1000 40 150000>;
 	phy-mode = "usxgmii";
 	managed = "auto";
-	eth-c45-mdio-probe;
-	qcom,phy-intr-redirect = <&tlmm 109 IRQ_TYPE_EDGE_FALLING>;
+	snps,reset-active-low;
 	snps,reset-gpio = <&tlmm 108 1>;
+	snps,reset-delays-us = <1000 40 150000>;
 	vreg_emac_phy-supply = <&rtl_vreg>;
+	phy-handle = <&emac1_phy>;
+};
+
+&emac1_mdio {
+	emac1_phy: emac1_phy {
+		compatible = "ethernet-phy-ieee802.3-c45";
+		reg = <0x4>;
+		device_type = "ethernet-phy";
+		reset-gpios = <&tlmm 108 GPIO_ACTIVE_LOW>;
+		reset-assert-us = <1000>;
+		reset-deassert-us = <150000>;
+		interrupts-extended = <&tlmm 109 IRQ_TYPE_EDGE_FALLING>;
+	};
 };

@@ -1,5 +1,7 @@
 ifeq ($(CONFIG_ARCH_SDXKOVA),y)
 dtbo-y += ./ipa/sdxkova-ipa.dtbo
+dtbo-y += ./ipa/sdxkova-512mb.dtbo
+dtbo-y += ./ipa/sdxkova-idp-cpe-v2.dtbo
 dtbo-y += ./eth/sdxkova-idp-mbb.dtbo
 dtbo-y += ./eth/sdxkova-idp-cpe.dtbo
 dtbo-y += ./eth/sdxkova-idp-mbb-v2.dtbo
