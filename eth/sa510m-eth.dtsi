@@ -140,6 +140,7 @@
 		pinctrl-1 = <&emac_mdc_inactive
 			     &emac_mdio_inactive>;
 
+		qcom,ioss_auto_resume_disabled;
 		snps,ps-speed = <1000>;
 		managed = "auto";
 		eth-c22-mdio-probe;
