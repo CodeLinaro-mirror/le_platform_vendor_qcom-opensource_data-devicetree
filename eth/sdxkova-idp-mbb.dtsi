@@ -1,27 +1,18 @@
 // SPDX-License-Identifier: BSD-3-Clause
 /*
- * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+ * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
  */
 
 #include "sdxkova.dtsi"
 
 &soc {
-	rtl8261_vreg: rtl8261_vreg {
+	/* Common regulator shared between both PHYs */
+        rtl_vreg: rtl_vreg {
 		compatible = "qti-regulator-fixed";
-		regulator-name = "rtl8261_vreg";
+		regulator-name = "rtl_vreg";
 		gpio = <&tlmm 86 GPIO_ACTIVE_HIGH>;
 		regulator-min-microvolt = <700000>;
 		regulator-max-microvolt = <700000>;
-		enable-active-high;
-		regulator-enable-ramp-delay = <80000>;
-	};
-
-	rtl8221_vreg: rtl8221_vreg {
-		compatible = "qti-regulator-fixed";
-		regulator-name = "rtl8221_vreg";
-		gpio = <&tlmm 88 GPIO_ACTIVE_HIGH>;
-		regulator-min-microvolt = <1050000>;
-		regulator-max-microvolt = <1050000>;
 		enable-active-high;
 		regulator-enable-ramp-delay = <80000>;
 	};
@@ -47,7 +38,7 @@
 	snps,reset-active-low;
 	snps,reset-gpio = <&tlmm 96 1>;
 	snps,reset-delays-us = <1000 40 150000>;
-	vreg_emac_phy-supply = <&rtl8261_vreg>;
+	vreg_emac_phy-supply = <&rtl_vreg>;
 	phy-handle = <&emac0_phy>;
 
 	pinctrl-0 = <&emac0_mdc_active
@@ -90,7 +81,7 @@
 	snps,reset-active-low;
 	snps,reset-gpio = <&tlmm 108 1>;
 	snps,reset-delays-us = <10000 40 50000>;
-	vreg_emac_phy-supply = <&rtl8221_vreg>;
+	vreg_emac_phy-supply = <&rtl_vreg>;
 	phy-handle = <&emac1_phy>;
 };
 
