@@ -112,7 +112,7 @@
 				pins = "gpio96";
 				bias-pull-down;
 				drive-strength = <2>;
-				input-enable;
+				output-low;
 			};
 		};
 
@@ -269,7 +269,7 @@
 				pins = "gpio108";
 				bias-pull-down;
 				drive-strength = <2>;
-				input-enable;
+				output-low;
 			};
 		};
 	};
