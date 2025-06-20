@@ -6,12 +6,22 @@
 #include "sdxkova.dtsi"
 
 &soc {
-	rtl_vreg: rtl_vreg {
+	rtl8261_vreg: rtl8261_vreg {
 		compatible = "qti-regulator-fixed";
-		regulator-name = "rtl_vreg";
+		regulator-name = "rtl8261_vreg";
 		gpio = <&tlmm 86 GPIO_ACTIVE_HIGH>;
 		regulator-min-microvolt = <700000>;
 		regulator-max-microvolt = <700000>;
+		enable-active-high;
+		regulator-enable-ramp-delay = <80000>;
+	};
+
+	rtl8221_vreg: rtl8221_vreg {
+		compatible = "qti-regulator-fixed";
+		regulator-name = "rtl8221_vreg";
+		gpio = <&tlmm 88 GPIO_ACTIVE_HIGH>;
+		regulator-min-microvolt = <1050000>;
+		regulator-max-microvolt = <1050000>;
 		enable-active-high;
 		regulator-enable-ramp-delay = <80000>;
 	};
@@ -33,12 +43,12 @@
 &emac0 {
 	status = "ok";
 	phy-mode = "usxgmii";
-	snps,reset-gpio = <&tlmm 96 1>;
 	managed = "auto";
-	eth-c45-mdio-probe;
 	snps,reset-active-low;
-	vreg_emac_phy-supply = <&rtl_vreg>;
+	snps,reset-gpio = <&tlmm 96 1>;
 	snps,reset-delays-us = <1000 40 150000>;
+	vreg_emac_phy-supply = <&rtl8261_vreg>;
+	phy-handle = <&emac0_phy>;
 
 	pinctrl-0 = <&emac0_mdc_active
 		     &emac0_mdio_active
@@ -59,4 +69,39 @@
 
 	eth_aux_ts_enabled;
 	qcom,aux_ts_num_pins = <4>;
+};
+
+&emac0_mdio {
+	emac0_phy: emac0_phy {
+		compatible = "ethernet-phy-ieee802.3-c45";
+		reg = <0x2>;
+		device_type = "ethernet-phy";
+		reset-gpios = <&tlmm 96 GPIO_ACTIVE_LOW>;
+		reset-assert-us = <1000>;
+		reset-deassert-us = <150000>;
+		interrupts-extended = <&tlmm 97 IRQ_TYPE_EDGE_FALLING>;
+	};
+};
+
+&emac1 {
+	status = "ok";
+	phy-mode = "sgmii";
+	managed = "auto";
+	snps,reset-active-low;
+	snps,reset-gpio = <&tlmm 108 1>;
+	snps,reset-delays-us = <10000 40 50000>;
+	vreg_emac_phy-supply = <&rtl8221_vreg>;
+	phy-handle = <&emac1_phy>;
+};
+
+&emac1_mdio {
+	emac1_phy: emac1_phy {
+		compatible = "ethernet-phy-ieee802.3-c45";
+		reg = <0x1>;
+		device_type = "ethernet-phy";
+		reset-gpios = <&tlmm 108 GPIO_ACTIVE_LOW>;
+		reset-assert-us = <10000>;
+		reset-deassert-us = <50000>;
+		interrupts-extended = <&tlmm 109 IRQ_TYPE_EDGE_FALLING>;
+	};
 };
