@@ -117,6 +117,8 @@
 
 		interrupt-names = "macirq", "phy-intr";
 
+		emac-phy-off-suspend = <4>;
+
 		snps,tso;
 		snps,pbl = <32>;
 		snps,rxpbl = <16>;
