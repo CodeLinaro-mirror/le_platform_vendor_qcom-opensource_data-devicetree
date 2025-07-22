@@ -5,6 +5,7 @@ dtbo-y += ./ipa/sdxkova-idp-cpe-v2.dtbo
 dtbo-y += ./eth/sdxkova-idp-mbb.dtbo
 dtbo-y += ./eth/sdxkova-idp-cpe.dtbo
 dtbo-y += ./eth/sdxkova-idp-mbb-v2.dtbo
+dtbo-y += ./eth/sdxkova-idp-cpe-v7.dtbo
 endif
 
 ifeq ($(CONFIG_ARCH_SDXPINN),y)
