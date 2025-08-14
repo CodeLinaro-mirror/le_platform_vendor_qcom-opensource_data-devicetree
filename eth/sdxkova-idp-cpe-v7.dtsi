@@ -17,7 +17,7 @@
         };
 };
 
-&emac1 {
+&emac0 {
         status = "ok";
         phy-mode = "usxgmii";
         managed = "auto";
@@ -25,13 +25,22 @@
         snps,reset-gpio = <&tlmm 108 1>;
         snps,reset-delays-us = <1000 40 150000>;
         vreg_emac_phy-supply = <&rtl_vreg>;
-        phy-handle = <&emac1_phy>;
+        phy-handle = <&emac0_phy>;
+        pinctrl-names = "default","init";
+        pinctrl-0 = <&emac0_mdc_active
+                     &emac0_mdio_active
+                     &emac1_pin_phy_intr_active
+                     &emac1_phy_reset_state_active>;
+        pinctrl-1 = <&emac0_mdc_inactive
+                     &emac0_mdio_inactive
+                     &emac1_pin_phy_intr_inactive
+                     &emac1_phy_reset_state_inactive>;
 };
 
-&emac1_mdio {
-        emac1_phy: emac1_phy {
+&emac0_mdio {
+        emac0_phy: emac0_phy {
                 compatible = "ethernet-phy-ieee802.3-c45";
-                reg = <0x4>;
+                reg = <0x2>;
                 device_type = "ethernet-phy";
                 reset-gpios = <&tlmm 108 GPIO_ACTIVE_LOW>;
                 reset-assert-us = <1000>;
