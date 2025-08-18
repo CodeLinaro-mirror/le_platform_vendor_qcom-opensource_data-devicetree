@@ -157,6 +157,12 @@
 		interconnect-names = "axi_icc_path", "apb_icc_path";
 		interconnects = <&aggre_noc MASTER_EMAC &mc_virt SLAVE_EBI1>,
 				<&mem_noc MASTER_APPSS_PROC &cnoc_main SLAVE_EMAC_CFG>;
+
+		fixed-link {
+			status = "disabled";
+			speed = <1000>;
+			full-duplex;
+		};
 	};
 };
 
