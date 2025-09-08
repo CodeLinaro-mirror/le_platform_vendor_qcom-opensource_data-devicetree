@@ -1,9 +1,12 @@
-KBUILD_OPTIONS+=KBUILD_EXTMOD_DTS=.
+include $(TOPDIR)/rules.mk
+include $(INCLUDE_DIR)/kernel.mk
 
-all: dtbs
-
-clean:
-	$(MAKE) -C $(KERNEL_SRC) M=$(M) clean
+KERNEL_INCLUDE="$(LINUX_DIR)/include/"
+DTC := $(LINUX_DIR)/scripts/dtc/dtc
 
 %:
-	$(MAKE) -C $(KERNEL_SRC) M=$(M) $@ $(KBUILD_OPTIONS)
+	${CC} -undef -x assembler-with-cpp $(shell pwd)/ipa/$@.dts -I ${KERNEL_INCLUDE} -E -o $(shell pwd)/ipa/$@.dts.preprocessed
+	${DTC} -O dtb -o $(shell pwd)/ipa/$@.dtbo $(shell pwd)/ipa/$@.dts.preprocessed
+
+clean:
+	rm -rf *.preprocessed

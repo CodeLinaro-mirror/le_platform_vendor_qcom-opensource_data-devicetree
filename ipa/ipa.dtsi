@@ -36,7 +36,6 @@
 
 	ipa_hw: qcom,ipa@03e00000 {
 		compatible = "qcom,ipa";
-		mboxes = <&qmp_aop 0>;
 		reg =
 			<0x0 0x3e00000 0x0 0xb0000>,
 			<0x0 0x3e00000 0x0 0x100000>;
@@ -65,14 +64,10 @@
 		qcom,ipa-endp-delay-wa-v2;
 		qcom,tx-wrapper-cache-max-size = <400>;
 		qcom,ipa-gpi-event-rp-ddr;
-		qcom,ulso-supported;
 		qcom,ulso-ip-id-min-linux-val = <0>;
 		qcom,ulso-ip-id-max-linux-val = <0xffff>;
 		qcom,ulso-ip-id-min-windows-val = <0>;
 		qcom,ulso-ip-id-max-windows-val = <0x7fff>;
-		qcom,register-collection-on-crash;
-		qcom,testbus-collection-on-crash;
-		qcom,non-tn-collection-on-crash;
 		qcom,wan-use-skb-page;
 
 		clock-names = "core_clk";
@@ -86,13 +81,6 @@
 		qcom,tx-napi;
 		qcom,tx-poll;
 		qcom,lan-coal-enable;
-
-		/* Boot Config Information */
-		nvmem-cells = <&boot_config>;
-		nvmem-cell-names = "boot_conf";
-		qcom,fast-boot-mask = <0x1e>;
-		qcom,host-bypass-mask = <0x40>;
-		qcom,fast-boot-values = <0x5 0x7>;
 
 		ipa_smmu_ap: ipa_smmu_ap {
 			compatible = "qcom,ipa-smmu-ap-cb";

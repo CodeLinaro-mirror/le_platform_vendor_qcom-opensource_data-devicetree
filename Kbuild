@@ -1,3 +1,7 @@
+ifeq ($(CONFIG_ARCH_QCOM),y)
+dtbo-y += ./ipa/sdxecho-ipa.dtbo
+endif
+
 ifeq ($(CONFIG_ARCH_SDXKOVA),y)
 dtbo-y += ./ipa/sdxkova-ipa.dtbo
 dtbo-y += ./ipa/sdxkova-512mb.dtbo
