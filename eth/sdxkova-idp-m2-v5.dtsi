@@ -1,0 +1,84 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+&soc {
+	ioss: qcom,ioss {
+		compatible = "qcom,ioss-v2";
+		qcom,line_rate_for_llcc = <10000>;
+	};
+
+	ioss_aqc_eth0_rx: aqc_rx@eth0 {
+		qcom,dir-rx;
+		qcom,rx-filter-be;
+
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <15>;
+		qcom,mod-count-max = <25>;
+		qcom,mod-usecs-min = <64>;
+		qcom,mod-usecs-max = <128>;
+	};
+
+	ioss_aqc_eth0_tx: aqc_tx@eth0 {
+		qcom,dir-tx;
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <15>;
+		qcom,mod-count-max = <25>;
+		qcom,mod-usecs-min = <64>;
+		qcom,mod-usecs-max = <128>;
+	};
+};
+
+&pcie0_rp {
+	#address-cells = <5>;
+	#size-cells = <0>;
+
+	aquantia,aqc@pcie0_rp {
+		reg = <0 0 0 0 0>;
+
+		compatible = "qcom,ioss-v2-device";
+		qcom,ioss = <&ioss>;
+		/* ipa shares this group with aqc */
+		qcom,iommu-group = <&ipa_eth_group1>;
+		dma-coherent;
+		qcom,ioss_instance = <0>;
+		qcom,ioss_channels =
+			<&ioss_aqc_eth0_rx>,
+			<&ioss_aqc_eth0_tx>;
+
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		pci_device;
+
+		pci-ids =
+			"1d6a:0001",
+			"1d6a:d107",
+			"1d6a:07b1",
+			"1d6a:87b1",
+			"1d6a:d108",
+			"1d6a:08b1",
+			"1d6a:88b1",
+			"1d6a:d109",
+			"1d6a:09b1",
+			"1d6a:89b1",
+			"1d6a:d100",
+			"1d6a:00b1",
+			"1d6a:80b1",
+			"1d6a:11b1",
+			"1d6a:91b1",
+			"1d6a:12b1",
+			"1d6a:92b1",
+			"1d6a:00c0",
+			"1d6a:04c0",
+			"1d6a:12c0",
+			"1d6a:14c0",
+			"1d6a:93c0",
+			"1d6a:94c0";
+	};
+};
