@@ -137,12 +137,15 @@
 		snps,reset-gpio = <&tlmm 97 1>;
 		snps,reset-active-low;
 		snps,reset-delays-us = <0 11000 70000>;
-		pinctrl-names = "default","init";
+		pinctrl-names = "default", "init", "sleep";
 
 		pinctrl-0 = <&emac_mdc_active
 			     &emac_mdio_active>;
 
 		pinctrl-1 = <&emac_mdc_inactive
+			     &emac_mdio_inactive>;
+
+		pinctrl-2 = <&emac_mdc_inactive
 			     &emac_mdio_inactive>;
 
 		qcom,ioss_auto_resume_disabled;
