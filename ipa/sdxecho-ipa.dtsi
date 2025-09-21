@@ -13,7 +13,7 @@
 
 &ipa_hw{
 	qcom,ipa-hw-ver = <26>; /* IPA core version = IPAv7.0 */
-
+	/delete-property/qcom,use-64-bit-dma-mask;
 	interconnects = <&system_noc MASTER_IPA 0 &gem_noc SLAVE_LLCC 0>,
 	<&mc_virt MASTER_LLCC 0 &mc_virt SLAVE_EBI1 0>,
 	<&gem_noc MASTER_APPSS_PROC 0 &system_noc SLAVE_IPA_CFG 0>;
@@ -43,14 +43,26 @@
 		"TURBO";
 	qcom,throughput-threshold = <4000 9000 16000>;
 
+	#address-cells=<2>;
+	#size-cells=<2>;
 	ipa_smmu_ap_partition: ipa_smmu_ap_partition {
 		iommu-addresses = <&ipa_smmu_ap 0x0 0x0 0x0 0x20000000>,
-			<&ipa_smmu_ap 0x0 0x40000000 0xFFFFFFFF 0xC0000000>;
+			<&ipa_smmu_ap 0x0 0x40000000 0x0 0xFFFFFFFF>;
 	};
 
 	ipa_smmu_uc_partition: ipa_smmu_uc_partition {
 		iommu-addresses = <&ipa_smmu_uc 0x0 0x0 0x0 0x20000000>,
-			<&ipa_smmu_uc 0x0 0x40000000 0xFFFFFFFF 0xC0000000>;
+			<&ipa_smmu_uc 0x0 0x40000000 0x0 0xFFFFFFFF>;
+	};
+
+	ipa_smmu_eth_partition: ipa_smmu_eth_partition {
+		iommu-addresses = <&ipa_smmu_eth 0x0 0x0 0x0 0x20000000>,
+			<&ipa_smmu_eth 0x0 0x40000000 0x0 0xFFFFFFFF>;
+	};
+
+	ipa_smmu_eth1_partition: ipa_smmu_eth1_partition {
+		iommu-addresses = <&ipa_smmu_eth1 0x0 0x0 0x0 0x20000000>,
+			<&ipa_smmu_eth1 0x0 0x40000000 0x0 0xFFFFFFFF>;
 	};
 
 	ipa_smmu_ap: ipa_smmu_ap {
@@ -82,11 +94,17 @@
 	};
 
 	ipa_smmu_eth: ipa_smmu_eth {
-		iommus = <&apps_smmu 0x4A5 0x0>;
+		iommus = <&apps_smmu 0x4A6 0x0>;
+		/delete-property/qcom,shared-cb;
+		qcom,iommu-dma-addr-pool = <0x0 0x20000000 0x0 0x20000000>;
+		memory-region = <&ipa_smmu_eth_partition>;
 	};
 
 	ipa_smmu_eth1: ipa_smmu_eth1 {
-		iommus = <&apps_smmu 0x4A6 0x0>;
+		iommus = <&apps_smmu 0x4A8 0x0>;
+		/delete-property/qcom,shared-cb;
+		qcom,iommu-dma-addr-pool = <0x0 0x20000000 0x0 0x20000000>;
+		memory-region = <&ipa_smmu_eth1_partition>;
 	};
 };
 
