@@ -112,10 +112,9 @@
 		clock-names = "stmmaceth", "pclk", "ptp_ref", "phyaux", "sgmi_ref";
 		snps,ptp-ref-clk-rate = <125000000>;
 		snps,ptp-req-clk-rate = <57600000>;
-		interrupts-extended = <&intc GIC_SPI 261 IRQ_TYPE_LEVEL_HIGH>,
-					<&tlmm 91 IRQ_TYPE_EDGE_FALLING>;
+		interrupts-extended = <&intc GIC_SPI 261 IRQ_TYPE_LEVEL_HIGH>;
 
-		interrupt-names = "macirq", "phy-intr";
+		interrupt-names = "macirq";
 
 		emac-phy-off-suspend = <4>;
 
