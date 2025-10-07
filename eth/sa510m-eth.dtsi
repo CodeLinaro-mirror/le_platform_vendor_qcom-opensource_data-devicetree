@@ -118,6 +118,8 @@
 
 		emac-phy-off-suspend = <4>;
 
+		gdsc-off-on-suspend;
+
 		snps,tso;
 		snps,pbl = <32>;
 		snps,rxpbl = <16>;
