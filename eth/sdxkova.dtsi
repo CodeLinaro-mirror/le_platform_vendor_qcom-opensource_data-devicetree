@@ -286,7 +286,7 @@
 
 		qcom,ioss-traffic-type = "best-effort";
 
-		qcom,ring-size = <1024>;
+		qcom,ring-size = <1023>;
 		qcom,buff-size = <2048>;
 
 		qcom,mod-count-min = <16>;
@@ -299,7 +299,7 @@
 		qcom,dir-rx;
 		qcom,rx-filter-be;
 
-		qcom,ring-size = <1024>;
+		qcom,ring-size = <1023>;
 		qcom,buff-size = <2048>;
 
 		qcom,mod-count-min = <16>;
@@ -313,7 +313,7 @@
 
 		qcom,ioss-traffic-type = "best-effort";
 
-		qcom,ring-size = <1024>;
+		qcom,ring-size = <1023>;
 		qcom,buff-size = <2048>;
 
 		qcom,mod-count-min = <16>;
@@ -325,7 +325,7 @@
 	ioss_emac0_tx1: iemac_tx1@emac0 {
 		qcom,dir-tx;
 
-		qcom,ring-size = <1024>;
+		qcom,ring-size = <1023>;
 		qcom,buff-size = <2048>;
 
 		qcom,mod-count-min = <16>;
@@ -338,7 +338,7 @@
 		qcom,dir-rx;
 		qcom,rx-filter-be;
 
-		qcom,ring-size = <1024>;
+		qcom,ring-size = <1023>;
 		qcom,buff-size = <2048>;
 
 		qcom,mod-count-min = <16>;
@@ -349,7 +349,7 @@
 
 	ioss_emac0_qos_tx: iemac_qos_tx@emac0 {
 		qcom,dir-tx;
-		qcom,ring-size = <1024>;
+		qcom,ring-size = <1023>;
 		qcom,buff-size = <2048>;
 
 		qcom,mod-count-min = <16>;
@@ -615,7 +615,7 @@
 		qcom,dir-rx;
 		qcom,rx-filter-be;
 
-		qcom,ring-size = <1024>;
+		qcom,ring-size = <1023>;
 		qcom,buff-size = <2048>;
 
 		qcom,mod-count-min = <16>;
@@ -626,7 +626,7 @@
 
 	ioss_emac1_tx: iemac_tx@emac1 {
 		qcom,dir-tx;
-		qcom,ring-size = <1024>;
+		qcom,ring-size = <1023>;
 		qcom,buff-size = <2048>;
 
 		qcom,mod-count-min = <16>;
