@@ -112,12 +112,13 @@
 		clock-names = "stmmaceth", "pclk", "ptp_ref", "phyaux", "sgmi_ref";
 		snps,ptp-ref-clk-rate = <125000000>;
 		snps,ptp-req-clk-rate = <57600000>;
-		interrupts-extended = <&intc GIC_SPI 261 IRQ_TYPE_LEVEL_HIGH>,
-					<&tlmm 91 IRQ_TYPE_EDGE_FALLING>;
+		interrupts-extended = <&intc GIC_SPI 261 IRQ_TYPE_LEVEL_HIGH>;
 
-		interrupt-names = "macirq", "phy-intr";
+		interrupt-names = "macirq";
 
 		emac-phy-off-suspend = <4>;
+
+		gdsc-off-on-suspend;
 
 		snps,tso;
 		snps,pbl = <32>;
@@ -137,12 +138,15 @@
 		snps,reset-gpio = <&tlmm 97 1>;
 		snps,reset-active-low;
 		snps,reset-delays-us = <0 11000 70000>;
-		pinctrl-names = "default","init";
+		pinctrl-names = "default", "init", "sleep";
 
 		pinctrl-0 = <&emac_mdc_active
 			     &emac_mdio_active>;
 
 		pinctrl-1 = <&emac_mdc_inactive
+			     &emac_mdio_inactive>;
+
+		pinctrl-2 = <&emac_mdc_inactive
 			     &emac_mdio_inactive>;
 
 		qcom,ioss_auto_resume_disabled;
