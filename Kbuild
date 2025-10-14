@@ -3,6 +3,10 @@ dtbo-y += ./ipa/sa510m-ipa.dtbo
 dtbo-y += ./eth/sa510m-eth.dtbo
 endif
 
+ifeq ($(CONFIG_ARCH_KERA),y)
+dtbo-y += ./ipa/kera-ipa.dtbo
+endif
+
 always-y	:= $(dtb-y) $(dtbo-y)
 subdir-y	:= $(dts-dirs)
 clean-files	:= *.dtb *.dtbo
