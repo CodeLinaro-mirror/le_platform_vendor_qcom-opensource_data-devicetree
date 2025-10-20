@@ -1,5 +1,9 @@
 ifeq ($(CONFIG_ARCH_QCOM),y)
 dtbo-y += ./ipa/sdxecho-ipa.dtbo
+dtbo-y += ./eth/sdxecho-idp.dtbo
+dtbo-y += ./eth/sdxecho-idp-qmp5.dtbo
+dtbo-y += ./eth/sdxecho-idp-qmp5-v2.dtbo
+dtbo-y += ./eth/sdxecho-idp-qmp5-v3.dtbo
 endif
 
 ifeq ($(CONFIG_ARCH_SDXKOVA),y)
