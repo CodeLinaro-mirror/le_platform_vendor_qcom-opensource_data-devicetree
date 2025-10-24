@@ -13,6 +13,6 @@
 	model = "Qualcomm Technologies, Inc. SDXKOVA IDP CPE V7";
 	compatible = "qcom,sdxkova-idp",
 			"qcom,sdxkova", "qcom,idp";
-	qcom,msm-id = <726 0x10000>, <725 0x10000>, <677 0x10000>, <678 0x10000>, <679 0x10000>;
+	qcom,msm-id = <726 0x10000>, <725 0x10000>;
 	qcom,board-id = <0x1070022 0x401>;
 };
