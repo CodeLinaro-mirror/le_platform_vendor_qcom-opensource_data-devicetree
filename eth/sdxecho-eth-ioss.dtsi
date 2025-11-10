@@ -1,0 +1,93 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+&soc {
+
+/* Limit IOVA address range as per IPA requirement */
+	ipa_smmu_eth_partition: ipa_smmu_eth_partition {
+		iommu-addresses = <&emac0 0x0 0x0 0x0 0x20000000>,
+				<&emac0 0x0 0x40000000 0xFF 0xC0000000>;
+	};
+
+	ioss: qcom,ioss {
+		 compatible = "qcom,ioss-v2";
+		 qcom,line_rate_for_llcc = <10000>;
+	};
+
+
+	ioss_emac0_rx: iemac_rx@eth0 {
+		 qcom,dir-rx;
+		 qcom,rx-filter-be;
+
+		 qcom,ring-size = <1024>;
+		 qcom,buff-size = <2048>;
+
+		 qcom,mod-count-min = <16>;
+		 qcom,mod-count-max = <16>;
+		 qcom,mod-usecs-min = <30>;
+		 qcom,mod-usecs-max = <60>;
+	};
+
+	ioss_emac0_tx: iemac_tx@eth0 {
+		 qcom,dir-tx;
+
+		 qcom,ring-size = <1024>;
+		 qcom,buff-size = <2048>;
+
+		 qcom,mod-count-min = <16>;
+		 qcom,mod-count-max = <16>;
+		 qcom,mod-usecs-min = <30>;
+		 qcom,mod-usecs-max = <60>;
+	};
+
+	ioss_emac1_rx: iemac_rx@eth1 {
+		qcom,dir-rx;
+		qcom,rx-filter-be;
+
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+	ioss_emac1_tx: iemac_tx@eth1 {
+		qcom,dir-tx;
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+/* Limit IOVA address range as per IPA requirement */
+	ipa_smmu_eth1_partition: ipa_smmu_eth1_partition {
+		iommu-addresses = <&emac1 0x0 0x0 0x0 0x20000000>,
+		<&emac1 0x0 0x40000000 0xFF 0xC0000000>;
+	};
+};
+
+&emac0 {
+	compatible = "qcom,sdx95-ethqos", "snps,dwxgmac", "qcom,ioss-v2-device";
+
+	qcom,ioss = <&ioss>;
+	qcom,ioss_instance = <0>;
+	qcom,ioss_channels = <&ioss_emac0_rx>, <&ioss_emac0_tx>;
+	memory-region = <&ipa_smmu_eth_partition>;
+};
+
+&emac1 {
+	compatible = "qcom,sdx95-ethqos", "snps,dwxgmac", "qcom,ioss-v2-device";
+
+	qcom,ioss = <&ioss>;
+	qcom,ioss_instance = <1>;
+	qcom,ioss_channels = <&ioss_emac1_rx>, <&ioss_emac1_tx>;
+	memory-region = <&ipa_smmu_eth1_partition>;
+
+};
