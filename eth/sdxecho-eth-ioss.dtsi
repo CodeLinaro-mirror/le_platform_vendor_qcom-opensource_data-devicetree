@@ -71,6 +71,37 @@
 		iommu-addresses = <&emac1 0x0 0x0 0x0 0x20000000>,
 		<&emac1 0x0 0x40000000 0xFF 0xC0000000>;
 	};
+
+	ioss_eth2_rx: iemac_rx@eth2 {
+		qcom,dir-rx;
+		qcom,rx-filter-be;
+
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+	ioss_eth2_tx: iemac_tx@eth2 {
+		qcom,dir-tx;
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+/* Limit IOVA address range as per IPA requirement */
+	ipa_smmu_eth2_partition: ipa_smmu_eth2_partition {
+		iommu-addresses = <&emac2 0x0 0x0 0x0 0x20000000>,
+		<&emac2 0x0 0x40000000 0xFF0 0xC0000000>;
+	};
+
 };
 
 &emac0 {
@@ -91,3 +122,12 @@
 	memory-region = <&ipa_smmu_eth1_partition>;
 
 };
+
+&emac2 {
+	compatible = "qcom,sdx95-ethqos", "snps,dwxgmac", "qcom,ioss-v2-device";
+	qcom,ioss = <&ioss>;
+	qcom,ioss_instance = <2>;
+	qcom,ioss_channels = <&ioss_eth2_rx>, <&ioss_eth2_tx>;
+	memory-region = <&ipa_smmu_eth2_partition>;
+};
+
