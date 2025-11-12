@@ -36,6 +36,7 @@
 
 	ipa_hw: qcom,ipa@03e00000 {
 		compatible = "qcom,ipa";
+		qcom,qmp = <&aoss_qmp>;
 		reg =
 			<0x0 0x3e00000 0x0 0xb0000>,
 			<0x0 0x3e00000 0x0 0x100000>;
