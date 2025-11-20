@@ -485,6 +485,63 @@
 		};
 	};
 
+	emac0_rss_mtl_rx_setup: emac0-rss-rx-queues-config {
+		qcom,config-name = "rss";
+		snps,rx-queues-to-use = <4>;
+		snps,rx-sched-sp;
+
+		queue0 {
+			snps,dcb-algorithm;
+			snps,map-to-dma-channel = <0x1>;
+			snps,fifo_depth = <19712>;
+		};
+
+		queue1 {
+			snps,dcb-algorithm;
+			snps,map-to-dma-channel = <0x1>;
+			snps,fifo_depth = <256>;
+		};
+
+		queue2 {
+			snps,dcb-algorithm;
+			snps,map-to-dma-channel = <0x1>;
+			snps,fifo_depth = <256>;
+		};
+
+		queue3 {
+			snps,dcb-algorithm;
+			snps,map-to-dma-channel = <0x1>;
+			snps,fifo_depth = <256>;
+		};
+	};
+
+	emac0_rss_mtl_tx_setup: emac0-rss-tx-queues-config {
+		qcom,config-name = "rss";
+		snps,tx-queues-to-use = <4>;
+		snps,tx-sched-sp;
+
+		queue0 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <10240>;
+		};
+
+		queue1 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <10240>;
+
+		};
+
+		queue2 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <10240>;
+		};
+
+		queue3 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <10240>;
+		};
+	};
+
 	emac0_stmmac_axi_setup: emac0_stmmac-axi-config {
 		snps,wr_osr_lmt = <15>;
 		snps,rd_osr_lmt = <15>;
@@ -592,8 +649,8 @@
 		snps,pbl = <32>;
 		tx-fifo-depth = <49152>;
 		rx-fifo-depth = <20480>;
-		snps,mtl-rx-config = <&emac0_mtl_rx_setup &qos_mtl_rx_setup>;
-		snps,mtl-tx-config = <&emac0_mtl_tx_setup &qos_mtl_tx_setup>;
+		snps,mtl-rx-config = <&emac0_mtl_rx_setup &qos_mtl_rx_setup &emac0_rss_mtl_rx_setup>;
+		snps,mtl-tx-config = <&emac0_mtl_tx_setup &qos_mtl_tx_setup &emac0_rss_mtl_tx_setup>;
 
 		qos-use-skprio;
 
