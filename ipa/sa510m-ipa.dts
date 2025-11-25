@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BSD-3-Clause
 /*
- * Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
  */
 
 /dts-v1/;
@@ -21,9 +21,11 @@
 
 / {
 	model = "Qualcomm Technologies, Inc. SA510M IDP";
-	compatible = "qcom,sa510m-idp",
-			"qcom,sa510m", "qcom,idp";
+	compatible = "qcom,sa510m-idp", "qcom,sa510m-atp",
+			"qcom,sa510m", "qcom,idp", "qcom,atp";
 
 	qcom,msm-id = <697 0x10000>;
-	qcom,board-id = <0x22 0x200>, <0x22 0x300>;
+	qcom,board-id = <0x21 0x200>, <0x21 0x300>,
+			<0x22 0x200>, <0x22 0x300>,
+			<0x22 0x201>, <0x22 0x301>;
 };
