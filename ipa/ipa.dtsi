@@ -65,6 +65,7 @@
 		qcom,ipa-endp-delay-wa-v2;
 		qcom,tx-wrapper-cache-max-size = <400>;
 		qcom,ipa-gpi-event-rp-ddr;
+		qcom,ulso-supported;
 		qcom,ulso-ip-id-min-linux-val = <0>;
 		qcom,ulso-ip-id-max-linux-val = <0xffff>;
 		qcom,ulso-ip-id-min-windows-val = <0>;
