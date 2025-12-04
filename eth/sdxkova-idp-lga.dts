@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+#include "sdxkova-idp-lga.dtsi"
+#include "../ipa/sdxkova-ipa.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. SDXKOVA IDP LGA V3/V4";
+	compatible = "qcom,sdxkova-idp",
+			"qcom,sdxkova", "qcom,idp";
+	qcom,msm-id = <677 0x10000>, <678 0x10000>, <679 0x10000>;
+	qcom,board-id = <0x3030022 0x403>, <0x3040022 0x403>, <0x3050022 0x403>, <0x3060022 0x403>;
+};
