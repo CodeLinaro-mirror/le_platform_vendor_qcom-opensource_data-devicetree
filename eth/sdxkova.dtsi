@@ -499,6 +499,7 @@
 
 	emac0: qcom,emac0@23040000 {
 		compatible = "qcom,stmmac-ethqos", "snps,dwxgmac", "qcom,ioss-v2-device";
+		label = "eth0";
 		qcom,arm-smmu;
 		qcom,ioss = <&ioss>;
 		qcom,ioss_instance = <0>;
@@ -682,6 +683,7 @@
 
 	emac1: qcom,emac1@22FC0000 {
 		compatible = "qcom,stmmac-ethqos", "snps,dwxgmac", "qcom,ioss-v2-device";
+		label = "eth1";
 		qcom,arm-smmu;
 		qcom,ioss = <&ioss>;
 		qcom,ioss_instance = <1>;
