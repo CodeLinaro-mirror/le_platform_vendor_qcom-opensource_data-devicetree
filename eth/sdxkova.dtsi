@@ -768,3 +768,8 @@
 		};
 	};
 };
+
+&aliases {
+	emac0 = "/soc/qcom,emac0@23040000";
+	emac1 = "/soc/qcom,emac1@22FC0000";
+};
