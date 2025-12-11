@@ -14,6 +14,8 @@ dtbo-y += ./eth/sdxkova-idp-mbb.dtbo
 dtbo-y += ./eth/sdxkova-idp-cpe.dtbo
 dtbo-y += ./eth/sdxkova-idp-mbb-v2.dtbo
 dtbo-y += ./eth/sdxkova-idp-cpe-v7.dtbo
+dtbo-y += ./eth/sdxkova-idp-m2-v5.dtbo
+dtbo-y += ./qms/sdxkova-smem-mailbox.dtbo
 endif
 
 ifeq ($(CONFIG_ARCH_SDXPINN),y)
