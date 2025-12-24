@@ -149,6 +149,8 @@
 		pinctrl-2 = <&emac_mdc_inactive
 			     &emac_mdio_inactive>;
 
+		mac_err_rec;
+
 		qcom,ioss_auto_resume_disabled;
 		snps,ps-speed = <1000>;
 		managed = "auto";
