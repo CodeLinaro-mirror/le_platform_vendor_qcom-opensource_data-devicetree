@@ -668,6 +668,39 @@
 		};
 	};
 
+	emac1_rss_mtl_rx_setup: emac1-rss-rx-queues-config {
+		qcom,config-name = "rss";
+		snps,rx-queues-to-use = <2>;
+		snps,rx-sched-sp;
+
+		queue0 {
+			snps,dcb-algorithm;
+			snps,map-to-dma-channel = <0x1>;
+			snps,fifo_depth = <15360>;
+		};
+
+		queue1 {
+			snps,dcb-algorithm;
+			snps,map-to-dma-channel = <0x1>;
+			snps,fifo_depth = <1024>;
+			snps,threshold_byte = <128>;
+		};
+	};
+
+	emac1_rss_mtl_tx_setup: emac1-rss-tx-queues-config {
+		snps,tx-queues-to-use = <2>;
+		qcom,config-name = "rss";
+		snps,tx-sched-sp;
+
+		queue0 {
+			snps,dcb-algorithm;
+		};
+
+		queue1 {
+			snps,dcb-algorithm;
+		};
+	};
+
 	emac1_stmmac_axi_setup: emac1_stmmac-axi-config {
 		snps,wr_osr_lmt = <15>;
 		snps,rd_osr_lmt = <15>;
@@ -754,8 +787,8 @@
 		snps,pbl = <32>;
 		rx-fifo-depth = <16384>;
 		tx-fifo-depth = <16384>;
-		snps,mtl-rx-config = <&emac1_mtl_rx_setup>;
-		snps,mtl-tx-config = <&emac1_mtl_tx_setup>;
+		snps,mtl-rx-config = <&emac1_mtl_rx_setup &emac1_rss_mtl_rx_setup>;
+		snps,mtl-tx-config = <&emac1_mtl_tx_setup &emac1_rss_mtl_tx_setup>;
 
 		snps,axi-config = <&emac1_stmmac_axi_setup>;
 		mac-address = [00 55 7B B5 7D f7];
