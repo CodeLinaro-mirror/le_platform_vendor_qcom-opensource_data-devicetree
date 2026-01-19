@@ -120,6 +120,9 @@
 
 		gdsc-off-on-suspend;
 
+		/* Select PPS channel by index (0..3). PPS1 here. */
+		emac_pps_output = <1>;
+
 		snps,tso;
 		snps,pbl = <32>;
 		snps,rxpbl = <16>;
@@ -141,7 +144,8 @@
 		pinctrl-names = "default", "init", "sleep";
 
 		pinctrl-0 = <&emac_mdc_active
-			     &emac_mdio_active>;
+			     &emac_mdio_active
+			     &emac_pin_pps1>;
 
 		pinctrl-1 = <&emac_mdc_inactive
 			     &emac_mdio_inactive>;
