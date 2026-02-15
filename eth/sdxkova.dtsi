@@ -617,8 +617,24 @@
 		snps,ptp-ref-clk-rate = <230400000>;
 		snps,ptp-req-clk-rate = <125000000>;
 
-		interrupts-extended = <&intc GIC_SPI 360 IRQ_TYPE_LEVEL_HIGH>;
-		interrupt-names = "macirq";
+		interrupts-extended = <&intc GIC_SPI 360 IRQ_TYPE_LEVEL_HIGH>,
+				      <&intc GIC_SPI 361 IRQ_TYPE_EDGE_RISING>,
+                                      <&intc GIC_SPI 362 IRQ_TYPE_EDGE_RISING>,
+				      <&intc GIC_SPI 363 IRQ_TYPE_EDGE_RISING>,
+                                      <&intc GIC_SPI 364 IRQ_TYPE_EDGE_RISING>,
+				      <&intc GIC_SPI 371 IRQ_TYPE_EDGE_RISING>,
+                                      <&intc GIC_SPI 372 IRQ_TYPE_EDGE_RISING>,
+				      <&intc GIC_SPI 373 IRQ_TYPE_EDGE_RISING>,
+                                      <&intc GIC_SPI 374 IRQ_TYPE_EDGE_RISING>;
+		interrupt-names = "macirq",
+				  "dma_rx0",
+                                  "dma_rx1",
+                                  "dma_rx2",
+                                  "dma_rx3",
+				  "dma_tx0",
+                                  "dma_tx1",
+                                  "dma_tx2",
+                                  "dma_tx3";
 
 		enable-pfc;
 
@@ -816,9 +832,16 @@
 		"sgmii_mac_rclk_src", "sgmii_mac_tclk_src", "sgmii_rclk",
 		"sgmii_tclk", "sgmii_mac_rclk", "sgmii_mac_tclk","sgmi_ref";
 
-		interrupts-extended = <&intc GIC_SPI 445 IRQ_TYPE_LEVEL_HIGH>;
-
-		interrupt-names = "macirq";
+		interrupts-extended = <&intc GIC_SPI 445 IRQ_TYPE_LEVEL_HIGH>,
+				      <&intc GIC_SPI 366 IRQ_TYPE_EDGE_RISING>,
+                                      <&intc GIC_SPI 367 IRQ_TYPE_EDGE_RISING>,
+				      <&intc GIC_SPI 377 IRQ_TYPE_EDGE_RISING>,
+                                      <&intc GIC_SPI 378 IRQ_TYPE_EDGE_RISING>;
+		interrupt-names = "macirq",
+				  "dma_rx0",
+                                  "dma_rx1",
+				  "dma_tx0",
+                                  "dma_tx1";
 
 		vreg_a_sgmii_1p2-supply = <&L1B>;
 		vreg_a_sgmii_0p9-supply = <&L4B>;
