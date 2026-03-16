@@ -13,6 +13,10 @@
 
 &ipa_hw{
 	qcom,ipa-hw-ver = <26>; /* IPA core version = IPAv7.0 */
+        qcom,register-collection-on-crash;
+        qcom,testbus-collection-on-crash;
+        qcom,non-tn-collection-on-crash;
+
 	/delete-property/qcom,use-64-bit-dma-mask;
 	interconnects = <&system_noc MASTER_IPA 0 &gem_noc SLAVE_LLCC 0>,
 	<&mc_virt MASTER_LLCC 0 &mc_virt SLAVE_EBI1 0>,
