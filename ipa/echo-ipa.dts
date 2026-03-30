@@ -6,11 +6,11 @@
 /dts-v1/;
 /plugin/;
 
-#include "sdxecho-ipa.dtsi"
+#include "echo-ipa.dtsi"
 
 / {
-	model = "Qualcomm Technologies, Inc. SDXECHO";
-	compatible = "qcom,sdxecho";
+	model = "Qualcomm Technologies, Inc. echo";
+	compatible = "qcom,echo";
 
 	qcom,msm-id = <701 0x10000>;
 	qcom,board-id = <0 0>, <0x10021 0x0>, <0x10022 0x0>, <0x3010022 0x403>,

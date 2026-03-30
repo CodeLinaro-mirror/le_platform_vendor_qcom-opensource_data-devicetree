@@ -6,12 +6,12 @@
 /dts-v1/;
 /plugin/;
 
-#include "sdxecho-eth-ioss.dtsi"
+#include "echo-eth-ioss.dtsi"
 
 / {
-	model = "Qualcomm Technologies, Inc. SDXECHO IDP";
-	compatible = "qcom,sdxecho-idp",
-		"qcom,sdxecho", "qcom,idp";
+	model = "Qualcomm Technologies, Inc. echo IDP";
+	compatible = "qcom,echo-idp",
+		"qcom,echo", "qcom,idp";
 	qcom,msm-id = <701 0x10000>;
 	qcom,board-id = <0x10022 0x0>;
 

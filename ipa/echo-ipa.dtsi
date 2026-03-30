@@ -5,9 +5,9 @@
 
 #include <dt-bindings/interrupt-controller/arm-gic.h>
 #include <dt-bindings/mailbox/qcom-ipcc.h>
-#include <dt-bindings/mailbox/qcom-ipcc-sdxecho.h>
-#include <dt-bindings/interconnect/qcom,sdxecho.h>
-#include <dt-bindings/clock/qcom,sdxecho-gcc.h>
+#include <dt-bindings/mailbox/qcom-ipcc-echo.h>
+#include <dt-bindings/interconnect/qcom,echo.h>
+#include <dt-bindings/clock/qcom,echo-gcc.h>
 #include <dt-bindings/clock/qcom,rpmh.h>
 #include "ipa.dtsi"
 
