@@ -6,7 +6,7 @@
 /dts-v1/;
 /plugin/;
 
-#include "echo-eth-ioss.dtsi"
+#include "echo-eth.dtsi"
 
 / {
 	model = "Qualcomm Technologies, Inc. echo IDP QMP5 V1";
@@ -14,4 +14,10 @@
 			"qcom,echo", "qcom,idp";
 	qcom,msm-id = <701 0x10000>;
 	qcom,board-id = <0x2010022 0x0>;
+};
+
+&iemac_tx_be {
+	qcom,ring-size = <63>;
+	qcom,tcm_buf_en;
+	qcom,tcm_desc_en;
 };
