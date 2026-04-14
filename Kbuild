@@ -5,6 +5,7 @@ dtbo-y += ./eth/echo-idp-qmp5.dtbo
 dtbo-y += ./eth/echo-idp-qmp5-v2.dtbo
 dtbo-y += ./eth/echo-idp-qmp5-v3.dtbo
 dtbo-y += ./eth/echo-idp-qmp5-v4.dtbo
+dtbo-y += ./eth/echo-idp-qmp4.dtbo
 dtbo-y += ./eth/echo-idp-lga.dtbo
 dtbo-y += ./eth/echo-rcm.dtbo
 dtbo-y += ./eth/echo-rcm-v2.dtbo
