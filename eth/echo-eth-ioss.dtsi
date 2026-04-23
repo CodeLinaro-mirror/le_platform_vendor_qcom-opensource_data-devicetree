@@ -57,7 +57,7 @@
 };
 
 &emac0 {
-	compatible = "qcom,sdx95-ethqos", "snps,dwxgmac", "qcom,ioss-v2-device";
+	compatible = "qcom,echo-ethqos", "snps,dwxgmac", "qcom,ioss-v2-device";
 
 	qcom,ioss = <&ioss>;
 	qcom,ioss_instance = <0>;
@@ -66,7 +66,7 @@
 };
 
 &emac1 {
-	compatible = "qcom,sdx95-ethqos", "snps,dwxgmac", "qcom,ioss-v2-device";
+	compatible = "qcom,echo-ethqos", "snps,dwxgmac", "qcom,ioss-v2-device";
 
 	qcom,ioss = <&ioss>;
 	qcom,ioss_instance = <1>;
@@ -76,7 +76,7 @@
 };
 
 &emac2 {
-	compatible = "qcom,sdx95-ethqos", "snps,dwxgmac", "qcom,ioss-v2-device";
+	compatible = "qcom,echo-ethqos", "snps,dwxgmac", "qcom,ioss-v2-device";
 	qcom,ioss = <&ioss>;
 	qcom,ioss_instance = <2>;
 	qcom,ioss_channels = <&iemac_rx_be>, <&iemac_tx_be>;
