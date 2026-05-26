@@ -68,11 +68,11 @@
 };
 
 &ioss_emac1_rx {
-	qcom,compatible-ipa-configs = "default";
+	qcom,compatible-ipa-configs = "default", "dbl_vlan";
 };
 
 &ioss_emac1_tx {
-	qcom,compatible-ipa-configs = "default";
+	qcom,compatible-ipa-configs = "default", "dbl_vlan";
 };
 
 &emac1 {
