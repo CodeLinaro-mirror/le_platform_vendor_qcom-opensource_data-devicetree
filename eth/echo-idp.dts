@@ -17,7 +17,13 @@
 
 };
 
-&iemac_tx_be {
+&iemac0_tx_be {
+	qcom,tcm-ring-size = <32 63>;
+	qcom,tcm_buf_en;
+	qcom,tcm_desc_en;
+};
+
+&iemac1_tx_be {
 	qcom,tcm-ring-size = <32 63>;
 	qcom,tcm_buf_en;
 	qcom,tcm_desc_en;
