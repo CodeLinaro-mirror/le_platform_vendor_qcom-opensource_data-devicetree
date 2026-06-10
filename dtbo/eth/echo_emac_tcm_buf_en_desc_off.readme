@@ -1,0 +1,14 @@
+# echo_emac_tcm_buf_en_desc_off
+
+Enables TCM buffer allocation but disables TCM descriptor allocation on both emac0 and emac1 TX
+channels. Buffers are placed in TCM; descriptors remain in DDR.
+
+## emac0 TX
+- TCM buffer: enabled
+- TCM descriptor: disabled
+- TCM ring size: 32–64
+
+## emac1 TX
+- TCM buffer: enabled
+- TCM descriptor: disabled
+- TCM ring size: 32–64

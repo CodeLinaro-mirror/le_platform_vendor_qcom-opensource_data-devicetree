@@ -1,0 +1,12 @@
+# echo_emac_serdes_pm_off
+
+Disables SerDes power management on all EMAC instances (emac0, emac1, emac2).
+
+## emac0
+- SerDes PM: disabled
+
+## emac1
+- SerDes PM: disabled
+
+## emac2
+- SerDes PM: disabled

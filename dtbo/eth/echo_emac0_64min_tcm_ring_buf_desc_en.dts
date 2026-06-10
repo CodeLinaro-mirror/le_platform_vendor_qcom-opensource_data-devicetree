@@ -1,0 +1,60 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "echo-eth.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. echo IDP QMP5 TCM be0=on(64-127) be1=off";
+	compatible = "qcom,echo-idp",
+			"qcom,echo", "qcom,idp";
+	qcom,msm-id = <701 0x10000>, <787 0x10000>;
+	qcom,board-id = <0x2010022 0x0>,<0x2020022 0x0>,<0x2030022 0x0>;
+};
+
+/* Per-EMAC TX channels: TCM enabled on emac0, disabled on emac1 */
+&soc {
+	emac0_tx_be_64min_tcm: emac0_tx_be_64min_tcm@default {
+		qcom,dir-tx;
+		qcom,channel-num = <0>;
+		qcom,queue-number = <0>;
+
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+
+		qcom,tcm-ring-size = <64 127>;
+		qcom,tcm_buf_en;
+		qcom,tcm_desc_en;
+	};
+
+	emac1_tx_be_tcm_dis: emac1_tx_be_tcm_dis@default {
+		qcom,dir-tx;
+		qcom,channel-num = <0>;
+		qcom,queue-number = <0>;
+
+		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+};
+
+&emac0 {
+	qcom,ioss_channels = <&iemac0_rx_be>, <&emac0_tx_be_64min_tcm>;
+};
+
+&emac1 {
+	qcom,ioss_channels = <&iemac1_rx_be>, <&emac1_tx_be_tcm_dis>;
+};

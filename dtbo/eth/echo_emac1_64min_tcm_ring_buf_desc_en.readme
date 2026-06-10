@@ -1,0 +1,11 @@
+# echo_emac1_64min_tcm_ring_buf_desc_en
+
+Enables TCM ring buffer and descriptor allocation on emac1 (ring 64–127). emac0 uses DDR only.
+
+## emac0 TX
+- TCM: disabled
+
+## emac1 TX
+- TCM buffer: enabled
+- TCM descriptor: enabled
+- TCM ring size: 64–127

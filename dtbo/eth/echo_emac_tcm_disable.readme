@@ -1,0 +1,9 @@
+# echo_emac_tcm_disable
+
+Disables TCM on both emac0 and emac1 TX channels. All ring/descriptor memory is in DDR.
+
+## emac0 TX
+- TCM: disabled
+
+## emac1 TX
+- TCM: disabled
