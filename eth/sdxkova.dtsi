@@ -499,6 +499,73 @@
 		};
 	};
 
+	pppoe_mtl_rx_setup: pppoe-rx-queues-config {
+		qcom,config-name = "pppoe";
+		snps,rx-queues-to-use = <5>;
+		snps,rx-sched-sp;
+		queue0 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <14336>;
+			snps,map-to-dma-channel = <0x1>;
+			qcom,ipa_offload;
+		};
+
+		queue1 {
+			snps,dcb-algorithm;
+			snps,map-to-dma-channel = <0x1>;
+			snps,fifo_depth = <2048>;
+			snps,threshold_byte = <128>;
+			snps,route-ptp;
+		};
+
+		queue2 {
+			snps,dcb-algorithm;
+			snps,map-to-dma-channel = <0x1>;
+			snps,fifo_depth = <1024>;
+			snps,skip-queue;
+		};
+
+		queue3 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <1024>;
+		};
+
+		queue4 {
+			snps,dcb-algorithm;
+			snps,fifo_depth = <1024>;
+		};
+	};
+
+	pppoe_mtl_tx_setup: pppoe-tx-queues-config {
+		qcom,config-name = "pppoe";
+		snps,tx-queues-to-use = <6>;
+		snps,tx-sched-sp;
+		queue0 {
+			snps,dcb-algorithm;
+			qcom,ipa_offload;
+		};
+
+		queue1 {
+			snps,dcb-algorithm;
+		};
+
+		queue2 {
+			snps,dcb-algorithm;
+		};
+
+		queue3 {
+			snps,dcb-algorithm;
+		};
+
+		queue4 {
+			snps,dcb-algorithm;
+		};
+
+		queue5 {
+			snps,dcb-algorithm;
+		};
+	};
+
 	emac0_stmmac_axi_setup: emac0_stmmac-axi-config {
 		snps,wr_osr_lmt = <15>;
 		snps,rd_osr_lmt = <15>;
@@ -608,8 +675,8 @@
 		snps,pbl = <32>;
 		tx-fifo-depth = <49152>;
 		rx-fifo-depth = <20480>;
-		snps,mtl-rx-config = <&emac0_mtl_rx_setup &qos_mtl_rx_setup>;
-		snps,mtl-tx-config = <&emac0_mtl_tx_setup &qos_mtl_tx_setup>;
+		snps,mtl-rx-config = <&emac0_mtl_rx_setup &qos_mtl_rx_setup &pppoe_mtl_rx_setup>;
+		snps,mtl-tx-config = <&emac0_mtl_tx_setup &qos_mtl_tx_setup &pppoe_mtl_tx_setup>;
 
 		qos-use-skprio;
 
