@@ -12,7 +12,7 @@
 	model = "Qualcomm Technologies, Inc. echo IDP QMP5 V3";
 	compatible = "qcom,echo-idp",
 			"qcom,echo", "qcom,idp";
-	qcom,msm-id = <701 0x10000>;
+	qcom,msm-id = <701 0x10000>, <787 0x10000>;
 	qcom,board-id = <0x2030022 0x0>;
 };
 
