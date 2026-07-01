@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+        model = "Qualcomm Technologies, Inc. SA535M EMMC TDP";
+        compatible = "qcom,echo";
+        qcom,msm-id = <703 0x10000>;
+        qcom,board-id = <0x10030 0x20000>;
+};
+
+#include "sa535m-eth-ioss.dtsi"
