@@ -28,7 +28,7 @@
 };
 
 &ioss_emac0_rx {
-	qcom,compatible-ipa-configs = "default", "qos", "ezmesh";
+	qcom,compatible-ipa-configs = "default", "qos", "ezmesh", "pppoe_qos";
 };
 
 &ioss_emac0_rx1 {
@@ -36,8 +36,13 @@
 	qcom,compatible-ipa-configs = "ezmesh";
 };
 
+&ioss_emac0_rx2 {
+	qcom,ioss-traffic-type = "pppoe_tagged";
+	qcom,compatible-ipa-configs = "pppoe_qos";
+};
+
 &ioss_emac0_tx {
-	qcom,compatible-ipa-configs = "default", "qos", "ezmesh";
+	qcom,compatible-ipa-configs = "default", "qos", "ezmesh", "pppoe_qos";
 };
 
 &ioss_emac0_tx1 {
