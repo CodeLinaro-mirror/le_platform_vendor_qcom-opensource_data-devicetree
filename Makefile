@@ -7,7 +7,7 @@ DTC := $(LINUX_DIR)/scripts/dtc/dtc
 ifeq ($(TARGET_SUPPORT), sa535m)
 DTBO += eth/sa535m-eth
 DTBO += ipa/sa535m-ipa
-else ifeq ($(TARGET_SUPPORT), echo)
+else
 DTBO += ipa/echo-ipa
 DTBO += eth/echo-idp
 DTBO += eth/echo-idp-qmp5
