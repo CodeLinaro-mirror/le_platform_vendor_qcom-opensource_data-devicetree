@@ -27,3 +27,19 @@
 	qcom,tcm_buf_en;
 	qcom,tcm_desc_en;
 };
+
+&iemac_rx_qos0 {
+	qcom,channel-num = <6>;
+	qcom,queue-number = <5>;
+
+};
+
+&iemac_tx_qos0 {
+	qcom,channel-num = <6>;
+	qcom,queue-number = <6>;
+};
+
+&iemac_tx_qos1 {
+	qcom,channel-num = <7>;
+	qcom,queue-number = <7>;
+};
