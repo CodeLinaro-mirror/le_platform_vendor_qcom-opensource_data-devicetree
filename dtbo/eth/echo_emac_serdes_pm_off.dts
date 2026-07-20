@@ -1,0 +1,30 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "echo-eth.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. echo IDP QMP5 serdes-pm=off";
+	compatible = "qcom,echo-idp",
+			"qcom,echo", "qcom,idp";
+	qcom,msm-id = <701 0x10000>, <787 0x10000>;
+	qcom,board-id = <0x2010022 0x0>,<0x2020022 0x0>,<0x2030022 0x0>;
+};
+
+/* Disable SerDes power management on all EMAC instances */
+&emac0 {
+	snps,dis-serdes-pm;
+};
+
+&emac1 {
+	snps,dis-serdes-pm;
+};
+
+&emac2 {
+	snps,dis-serdes-pm;
+};

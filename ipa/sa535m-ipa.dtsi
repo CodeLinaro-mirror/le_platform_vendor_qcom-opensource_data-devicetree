@@ -1,0 +1,162 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/mailbox/qcom-ipcc.h>
+#include <dt-bindings/clock/qcom,rpmh.h>
+#include <dt-bindings/interconnect/qcom,echo.h>
+#include "ipa.dtsi"
+
+&ipa_eth_group1 {
+	/delete-property/ qcom,iommu-dma-addr-pool;
+	/delete-property/ qcom,iommu-geometry;
+	qcom,iommu-dma = "atomic";
+	dma-coherent;
+};
+
+&ipa_eth_group2 {
+	/delete-property/ qcom,iommu-dma-addr-pool;
+	/delete-property/ qcom,iommu-geometry;
+	qcom,iommu-dma = "atomic";
+	dma-coherent;
+};
+
+&ipa_hw {
+	/delete-property/ qcom,qmp;
+	reg =
+		<0x0 0x3e00000 0x0 0xec0000>,
+		<0x0 0x3e00000 0x0 0x100000>;
+	qcom,ipa-hw-ver = <26>; /* IPA core version = IPAv7.0 */
+	/delete-property/ qcom,use-64-bit-dma-mask;
+	qcom,interconnect,num-cases = <7>;
+	/delete-property/ qcom,lan-coal-enable;
+	qcom,ipa-config-is-auto;
+
+	interconnects = <&system_noc MASTER_IPA 0 &gem_noc SLAVE_LLCC 0>,
+	<&mc_virt MASTER_LLCC 0 &mc_virt SLAVE_EBI1 0>,
+	<&gem_noc MASTER_APPSS_PROC 0 &system_noc SLAVE_IPA_CFG 0>;
+
+	interconnect-names = "ipa_to_llcc", "llcc_to_ebi1", "appss_to_ipa";
+	/* No vote */
+	qcom,no-vote =
+	<0 0 0 0 0 0>;
+
+	/* SVS2 */
+	qcom,svs2 =
+	<18000 0 1200000 780000 0 76800>;
+
+	/* SVS */
+	qcom,svs =
+	<1200000 0 2700000 6200000 0 200000>;
+
+	/* NOMINAL */
+	qcom,nominal =
+	<2400000 0 4800000 12000000 0 400000>;
+
+	/* TURBO */
+	qcom,turbo =
+	<4800000 0 6300000 14000000 0 650000>;
+
+	/* TURBO_L1 */
+	qcom,turbo_l1 =
+	<4800000 0 6600000 16000000 0 650000>;
+
+	/* TURBO_L3 */
+	qcom,turbo_l3 =
+	<4800000 0 8100000 16000000 0 650000>;
+
+	qcom,bus-vector-names = "MIN", "SVS2", "SVS", "NOMINAL",
+		"TURBO", "TURBO_L1", "TURBO_L3";
+	qcom,throughput-threshold = <4000 9000 16000 21000 22000>;
+
+	#address-cells = <2>;
+	#size-cells = <2>;
+
+	ipa_smmu_ap_partition: ipa_smmu_ap_partition {
+		iommu-addresses = <&ipa_smmu_ap 0x0 0x0 0x0 0x20000000>,
+			<&ipa_smmu_ap 0x0 0x40000000 0x0 0xFFFFFFFF>;
+	};
+
+	ipa_smmu_uc_partition: ipa_smmu_uc_partition {
+		iommu-addresses = <&ipa_smmu_uc 0x0 0x0 0x0 0x20000000>,
+			<&ipa_smmu_uc 0x0 0x40000000 0x0 0xFFFFFFFF>;
+	};
+
+	ipa_smmu_eth_partition: ipa_smmu_eth_partition {
+		iommu-addresses = <&ipa_smmu_eth 0x0 0x0 0x0 0x20000000>,
+			<&ipa_smmu_eth 0x0 0x40000000 0x0 0xFFFFFFFF>;
+	};
+
+	ipa_smmu_eth1_partition: ipa_smmu_eth1_partition {
+		iommu-addresses = <&ipa_smmu_eth1 0x0 0x0 0x0 0x20000000>,
+			<&ipa_smmu_eth1 0x0 0x40000000 0x0 0xFFFFFFFF>;
+	};
+
+	ipa_smmu_wlan_partition: ipa_smmu_wlan_partition {
+		iommu-addresses = <&ipa_smmu_wlan 0x0 0x0 0x0 0xA0000000>,
+			<&ipa_smmu_wlan 0x0 0xB0000000 0x0 0xFFFFFFFF>;
+	};
+
+	ipa_smmu_wlan1_partition: ipa_smmu_wlan1_partition {
+		iommu-addresses = <&ipa_smmu_wlan1 0x0 0x0 0x0 0xA0000000>,
+			<&ipa_smmu_wlan1 0x0 0xB0000000 0x0 0xFFFFFFFF>;
+	};
+
+	ipa_smmu_wlan2_partition: ipa_smmu_wlan2_partition {
+		iommu-addresses = <&ipa_smmu_wlan2 0x0 0x0 0x0 0xA0000000>,
+			<&ipa_smmu_wlan2 0x0 0xB0000000 0x0 0xFFFFFFFF>;
+	};
+
+	ipa_smmu_ap: ipa_smmu_ap {
+		iommus = <&apps_smmu 0x4A0 0x0>;
+		memory-region = <&ipa_smmu_ap_partition>;
+		qcom,additional-mapping =
+			/* modem tables in IMEM */
+			<0x14681000 0x14681000 0x2000>;
+		qcom,ipa-q6-smem-size = <204800>;
+	};
+
+	ipa_smmu_wlan: ipa_smmu_wlan {
+		iommus = <&apps_smmu 0x4A3 0x0>;
+		/delete-property/ qcom,shared-cb;
+		qcom,iommu-dma-addr-pool = <0x0 0xA0000000 0x0 0x10000000>;
+		memory-region = <&ipa_smmu_wlan_partition>;
+	};
+
+	ipa_smmu_uc: ipa_smmu_uc {
+		iommus = <&apps_smmu 0x4A2 0x0>;
+		memory-region = <&ipa_smmu_uc_partition>;
+	};
+
+	ipa_smmu_wlan1: ipa_smmu_wlan1 {
+		iommus = <&apps_smmu 0x4A4 0x0>;
+		/delete-property/ qcom,shared-cb;
+		qcom,iommu-dma-addr-pool = <0x0 0xA0000000 0x0 0x10000000>;
+		memory-region = <&ipa_smmu_wlan1_partition>;
+	};
+
+	ipa_smmu_wlan2: ipa_smmu_wlan2 {
+		iommus = <&apps_smmu 0x4A5 0x0>;
+		/delete-property/ qcom,shared-cb;
+		qcom,iommu-dma-addr-pool = <0x0 0xA0000000 0x0 0x10000000>;
+		memory-region = <&ipa_smmu_wlan2_partition>;
+	};
+
+	ipa_smmu_eth: ipa_smmu_eth {
+		iommus = <&apps_smmu 0x4A6 0x0>;
+		/delete-property/ qcom,shared-cb;
+		qcom,iommu-dma-addr-pool = <0x0 0x20000000 0x0 0x20000000>;
+		memory-region = <&ipa_smmu_eth_partition>;
+		dma-coherent;
+	};
+
+	ipa_smmu_eth1: ipa_smmu_eth1 {
+		iommus = <&apps_smmu 0x4A8 0x0>;
+		/delete-property/ qcom,shared-cb;
+		qcom,iommu-dma-addr-pool = <0x0 0x20000000 0x0 0x20000000>;
+		memory-region = <&ipa_smmu_eth1_partition>;
+		dma-coherent;
+	};
+};

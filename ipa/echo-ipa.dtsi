@@ -84,6 +84,21 @@
 			<&ipa_smmu_eth2 0x0 0x40000000 0x0 0xFFFFFFFF>;
 	};
 
+	ipa_smmu_wlan_partition: ipa_smmu_wlan_partition {
+		iommu-addresses = <&ipa_smmu_wlan 0x0 0x0 0x0 0x20000000>,
+			<&ipa_smmu_wlan 0x0 0x40000000 0x0 0xFFFFFFFF>;
+	};
+
+	ipa_smmu_wlan1_partition: ipa_smmu_wlan1_partition {
+		iommu-addresses = <&ipa_smmu_wlan1 0x0 0x0 0x0 0x20000000>,
+			<&ipa_smmu_wlan1 0x0 0x40000000 0x0 0xFFFFFFFF>;
+	};
+
+	ipa_smmu_wlan2_partition: ipa_smmu_wlan2_partition {
+		iommu-addresses = <&ipa_smmu_wlan2 0x0 0x0 0x0 0x20000000>,
+			<&ipa_smmu_wlan2 0x0 0x40000000 0x0 0xFFFFFFFF>;
+	};
+
 	ipa_smmu_ap: ipa_smmu_ap {
 		iommus = <&apps_smmu 0x4A0 0x0>;
 		qcom,iommu-dma-addr-pool = <0x0 0x20000000 0x0 0x20000000>;
@@ -102,14 +117,20 @@
 
 	ipa_smmu_wlan: ipa_smmu_wlan {
 		iommus = <&apps_smmu 0x4A1 0x0>;
+		qcom,iommu-dma-addr-pool = <0x0 0x20000000 0x0 0x20000000>;
+		memory-region = <&ipa_smmu_wlan_partition>;
 	};
 
 	ipa_smmu_wlan1: ipa_smmu_wlan1 {
 		iommus = <&apps_smmu 0x4A3 0x0>;
+		qcom,iommu-dma-addr-pool = <0x0 0x20000000 0x0 0x20000000>;
+		memory-region = <&ipa_smmu_wlan1_partition>;
 	};
 
 	ipa_smmu_wlan2: ipa_smmu_wlan2 {
 		iommus = <&apps_smmu 0x4A4 0x0>;
+		qcom,iommu-dma-addr-pool = <0x0 0x20000000 0x0 0x20000000>;
+		memory-region = <&ipa_smmu_wlan2_partition>;
 	};
 
 	ipa_smmu_eth: ipa_smmu_eth {
