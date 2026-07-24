@@ -1,0 +1,12 @@
+# sa535m_emac0_rgmii
+
+Switches EMAC0 on SA535M to RGMII for use with a Micrel PHY.
+
+## Platform
+- SoC: SA535M (`msm-id = 703`)
+- Board variants: EMMC TDP (`0x10030 0x0`), NAND TDP (`0x10030 0x20000`)
+
+## EMAC0
+- Interface: RGMII (`rgmii-rxid`)
+- PHY: Micrel, MDIO address `0x7`
+- PHY reset: GPIO 75 (active low, 1 ms assert / 10 ms deassert delay)
