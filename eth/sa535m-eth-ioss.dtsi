@@ -58,6 +58,7 @@
 	qcom,ioss_instance = <0>;
 	qcom,ioss_channels = <&iemac_rx_be>, <&iemac_tx_be>;
 	memory-region = <&emac0_smmu_region>;
+	qcom,disable_ipa_tx;
 };
 
 &emac1 {
@@ -67,4 +68,5 @@
 	qcom,ioss_instance = <1>;
 	qcom,ioss_channels = <&iemac_rx_be>, <&iemac_tx_be>;
 	memory-region = <&emac1_smmu_region>;
+	qcom,disable_ipa_tx;
 };
