@@ -169,6 +169,8 @@
 	qcom,ioss_instance = <0>;
 	qcom,ioss_channels = <&iemac0_rx_be>, <&iemac0_tx_be>, <&iemac_rx_qos0>, <&iemac_tx_qos0>, <&iemac_tx_qos1>;
 	memory-region = <&emac0_smmu_region>;
+	qcom,iommu-dma = "fastmap";
+	qcom,iommu-geometry = <0x0 0x20000000 0x0 0x20000000>;
 };
 
 &emac1 {
@@ -178,7 +180,8 @@
 	qcom,ioss_instance = <1>;
 	qcom,ioss_channels = <&iemac1_rx_be>, <&iemac1_tx_be>, <&iemac_rx_qos0>, <&iemac_tx_qos0>, <&iemac_tx_qos1>;
 	memory-region = <&emac1_smmu_region>;
-
+	qcom,iommu-dma = "fastmap";
+	qcom,iommu-geometry = <0x0 0x20000000 0x0 0x20000000>;
 };
 
 &emac2 {
@@ -187,4 +190,6 @@
 	qcom,ioss_instance = <2>;
 	qcom,ioss_channels = <&iemac2_rx_be>, <&iemac2_tx_be>, <&iemac_rx_qos0>, <&iemac_tx_qos0>, <&iemac_tx_qos1>;
 	memory-region = <&emac2_smmu_region>;
+	qcom,iommu-dma = "fastmap";
+	qcom,iommu-geometry = <0x0 0x20000000 0x0 0x20000000>;
 };
