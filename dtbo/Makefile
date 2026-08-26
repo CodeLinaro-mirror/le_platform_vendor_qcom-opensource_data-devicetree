@@ -23,6 +23,7 @@ DTBO += eth/echo_emac0_64min_tcm_ring_buf_desc_en
 DTBO += eth/echo_emac1_128_tcm_ring_buf_desc_en
 DTBO += eth/echo_emac1_64min_tcm_ring_buf_desc_en
 DTBO += eth/echo_emac_serdes_pm_off
+DTBO += eth/echo_emac_sph_en
 DTBO += eth/echo_emac_tcm_buf_en_desc_off
 DTBO += eth/echo_emac_tcm_disable
 DTBO += eth/sa535m_emac0_rgmii
