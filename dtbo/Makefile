@@ -30,6 +30,7 @@ DTBO += eth/sa535m_emac0_rgmii_mac2phy
 DTBO += eth/sa535m_emac0_rgmii_mac2mac_10mbps
 DTBO += eth/sa535m_emac0_rgmii_mac2mac_100mbps
 DTBO += eth/sa535m_emac0_rgmii_mac2mac_1000mbps
+DTBO += eth/early_eth_rgmii_mac2phy
 
 .PHONY: dtbs clean
 dtbs: $(DTBO)
