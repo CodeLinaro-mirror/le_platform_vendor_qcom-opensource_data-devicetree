@@ -26,7 +26,7 @@ DTBO += eth/echo_emac_serdes_pm_off
 DTBO += eth/echo_emac_sph_en
 DTBO += eth/echo_emac_tcm_buf_en_desc_off
 DTBO += eth/echo_emac_tcm_disable
-DTBO += eth/sa535m_emac0_rgmii
+DTBO += eth/sa535m_emac0_rgmii_mac2phy
 
 .PHONY: dtbs clean
 dtbs: $(DTBO)

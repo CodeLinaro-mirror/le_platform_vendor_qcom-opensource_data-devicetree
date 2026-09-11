@@ -9,7 +9,7 @@
 #include "echo-eth.dtsi"
 
 / {
-	model = "Qualcomm Technologies, Inc. SA535M TDP RGMII emac0 speed=100";
+	model = "Qualcomm Technologies, Inc. SA535M TDP RGMII MAC2PHY";
 	compatible = "qcom,echo";
 	qcom,msm-id = <703 0x10000>;
 	qcom,board-id = <0x10030 0x0>, <0x10030 0x20000>;
