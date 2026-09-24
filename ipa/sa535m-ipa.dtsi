@@ -115,7 +115,7 @@
 		qcom,additional-mapping =
 			/* modem tables in IMEM */
 			<0x14681000 0x14681000 0x2000>;
-		qcom,ipa-q6-smem-size = <204800>;
+		qcom,ipa-q6-smem-size = <245760>; /* 240 KB */
 	};
 
 	ipa_smmu_wlan: ipa_smmu_wlan {
