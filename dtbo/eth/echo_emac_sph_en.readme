@@ -1,0 +1,16 @@
+# echo_emac_sph_en
+
+Enables Split Header (SPH) on all EMAC instances (emac0, emac1, emac2).
+
+By default SPH is disabled. Applying this overlay adds the `snps,sph`
+property, which causes the driver to skip setting STMMAC_FLAG_SPH_DISABLE,
+enabling SPH in the DMA engine.
+
+## emac0
+- SPH: enabled
+
+## emac1
+- SPH: enabled
+
+## emac2
+- SPH: enabled

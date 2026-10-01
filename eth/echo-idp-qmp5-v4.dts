@@ -1,0 +1,35 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "echo-eth.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. ECHO IDP QMP5 V4";
+	compatible = "qcom,echo-idp",
+			"qcom,echo", "qcom,idp";
+	qcom,msm-id = <701 0x10000>, <787 0x10000>;
+	qcom,board-id = <0x2040022 0x0>;
+};
+
+&iemac0_tx_be {
+	qcom,tcm-ring-size = <32 41>;
+	qcom,tcm_buf_en;
+	qcom,tcm_desc_en;
+};
+
+&iemac1_tx_be {
+	qcom,tcm-ring-size = <32 41>;
+	qcom,tcm_buf_en;
+	qcom,tcm_desc_en;
+};
+
+&iemac2_tx_be {
+	qcom,tcm-ring-size = <32 41>;
+	qcom,tcm_buf_en;
+	qcom,tcm_desc_en;
+};

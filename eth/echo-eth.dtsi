@@ -27,6 +27,7 @@
 
 	iemac0_rx_be: iemac0_rx@default {
 		 qcom,dir-rx;
+		 qcom,compatible-ipa-configs = "default", "qos";
 		 qcom,rx-filter-be;
 		 qcom,channel-num = <0>;
 		 qcom,queue-number = <0>;
@@ -42,6 +43,7 @@
 
 	iemac0_tx_be: iemac0_tx@default {
 		 qcom,dir-tx;
+		 qcom,compatible-ipa-configs = "default", "qos";
 		 qcom,channel-num = <0>;
 		 qcom,queue-number = <0>;
 
@@ -56,6 +58,7 @@
 
 	iemac1_rx_be: iemac1_rx@default {
 		 qcom,dir-rx;
+		 qcom,compatible-ipa-configs = "default", "qos";
 		 qcom,rx-filter-be;
 		 qcom,channel-num = <0>;
 		 qcom,queue-number = <0>;
@@ -71,6 +74,7 @@
 
 	iemac1_tx_be: iemac1_tx@default {
 		 qcom,dir-tx;
+		 qcom,compatible-ipa-configs = "default", "qos";
 		 qcom,channel-num = <0>;
 		 qcom,queue-number = <0>;
 
@@ -85,6 +89,7 @@
 
 	iemac2_rx_be: iemac2_rx@default {
 		 qcom,dir-rx;
+		 qcom,compatible-ipa-configs = "default", "qos";
 		 qcom,rx-filter-be;
 		 qcom,channel-num = <0>;
 		 qcom,queue-number = <0>;
@@ -100,6 +105,7 @@
 
 	iemac2_tx_be: iemac2_tx@default {
 		 qcom,dir-tx;
+		 qcom,compatible-ipa-configs = "default", "qos";
 		 qcom,channel-num = <0>;
 		 qcom,queue-number = <0>;
 
@@ -112,6 +118,48 @@
 		 qcom,mod-usecs-max = <60>;
 	};
 
+	iemac_rx_qos0: iemac_rx0@qos {
+		 qcom,dir-rx;
+		 qcom,rx-filter-qos;
+		 qcom,ioss-traffic-type = "qos";
+		 qcom,compatible-ipa-configs = "qos";
+
+		 qcom,ring-size = <512>;
+		 qcom,buff-size = <2048>;
+
+		 qcom,mod-count-min = <16>;
+		 qcom,mod-count-max = <16>;
+		 qcom,mod-usecs-min = <30>;
+		 qcom,mod-usecs-max = <60>;
+	};
+
+	iemac_tx_qos0: iemac_tx0@qos {
+		 qcom,dir-tx;
+		 qcom,ioss-traffic-type = "qos";
+		 qcom,compatible-ipa-configs = "qos";
+
+		 qcom,ring-size = <512>;
+		 qcom,buff-size = <2048>;
+
+		 qcom,mod-count-min = <16>;
+		 qcom,mod-count-max = <16>;
+		 qcom,mod-usecs-min = <30>;
+		 qcom,mod-usecs-max = <60>;
+	};
+
+	iemac_tx_qos1: iemac_tx1@qos {
+		 qcom,dir-tx;
+		 qcom,ioss-traffic-type = "qos";
+		 qcom,compatible-ipa-configs = "qos";
+
+		 qcom,ring-size = <512>;
+		 qcom,buff-size = <2048>;
+
+		 qcom,mod-count-min = <16>;
+		 qcom,mod-count-max = <16>;
+		 qcom,mod-usecs-min = <30>;
+		 qcom,mod-usecs-max = <60>;
+	};
 };
 
 &emac0 {
@@ -119,8 +167,10 @@
 
 	qcom,ioss = <&ioss>;
 	qcom,ioss_instance = <0>;
-	qcom,ioss_channels = <&iemac0_rx_be>, <&iemac0_tx_be>;
+	qcom,ioss_channels = <&iemac0_rx_be>, <&iemac0_tx_be>, <&iemac_rx_qos0>, <&iemac_tx_qos0>, <&iemac_tx_qos1>;
 	memory-region = <&emac0_smmu_region>;
+	qcom,iommu-dma = "fastmap";
+	qcom,iommu-geometry = <0x0 0x20000000 0x0 0x20000000>;
 };
 
 &emac1 {
@@ -128,15 +178,18 @@
 
 	qcom,ioss = <&ioss>;
 	qcom,ioss_instance = <1>;
-	qcom,ioss_channels = <&iemac1_rx_be>, <&iemac1_tx_be>;
+	qcom,ioss_channels = <&iemac1_rx_be>, <&iemac1_tx_be>, <&iemac_rx_qos0>, <&iemac_tx_qos0>, <&iemac_tx_qos1>;
 	memory-region = <&emac1_smmu_region>;
-
+	qcom,iommu-dma = "fastmap";
+	qcom,iommu-geometry = <0x0 0x20000000 0x0 0x20000000>;
 };
 
 &emac2 {
 	compatible = "qcom,echo-ethqos", "snps,dwxgmac", "qcom,ioss-v2-device";
 	qcom,ioss = <&ioss>;
 	qcom,ioss_instance = <2>;
-	qcom,ioss_channels = <&iemac2_rx_be>, <&iemac2_tx_be>;
+	qcom,ioss_channels = <&iemac2_rx_be>, <&iemac2_tx_be>, <&iemac_rx_qos0>, <&iemac_tx_qos0>, <&iemac_tx_qos1>;
 	memory-region = <&emac2_smmu_region>;
+	qcom,iommu-dma = "fastmap";
+	qcom,iommu-geometry = <0x0 0x20000000 0x0 0x20000000>;
 };
