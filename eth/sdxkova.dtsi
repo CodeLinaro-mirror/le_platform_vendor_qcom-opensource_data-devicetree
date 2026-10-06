@@ -749,13 +749,13 @@
 		queue0 {
 			snps,dcb-algorithm;
 			snps,map-to-dma-channel = <0x1>;
-			snps,fifo_depth = <15360>;
+			snps,fifo_depth = <16128>;
 		};
 
 		queue1 {
 			snps,dcb-algorithm;
 			snps,map-to-dma-channel = <0x1>;
-			snps,fifo_depth = <1024>;
+			snps,fifo_depth = <256>;
 			snps,threshold_byte = <128>;
 		};
 	};
