@@ -14,6 +14,7 @@ DTBO += eth/echo-idp-qmp5
 DTBO += eth/echo-idp-qmp5-v2
 DTBO += eth/echo-idp-qmp5-v3
 DTBO += eth/echo-idp-qmp5-v4
+DTBO += eth/echo-idp-qmp5-v7
 DTBO += eth/echo-idp-qmp4
 DTBO += eth/echo-idp-lga
 DTBO += eth/echo-rcm
