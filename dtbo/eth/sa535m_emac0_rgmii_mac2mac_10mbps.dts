@@ -1,0 +1,54 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "echo-eth.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. SA535M TDP RGMII emac0 mac2mac speed=10";
+	compatible = "qcom,echo";
+	qcom,msm-id = <703 0x10000>;
+	qcom,board-id = <0x10030 0x0>, <0x10030 0x20000>;
+};
+
+/* Configure emac0 for RGMII MAC-to-MAC mode (no PHY, fixed-link) at 10 Mbps */
+&emac0 {
+	pinctrl-0 = <&emac0_pin_rgmii_txc
+			&emac0_pin_rgmii_txd0
+			&emac0_pin_rgmii_txd1
+			&emac0_pin_rgmii_txd2
+			&emac0_pin_rgmii_txd3
+			&emac0_pin_rgmii_tx_ctl
+			&emac0_pin_rgmii_rxc
+			&emac0_pin_rgmii_rxd0
+			&emac0_pin_rgmii_rxd1
+			&emac0_pin_rgmii_rxd2
+			&emac0_pin_rgmii_rxd3
+			&emac0_pin_rgmii_rx_ctl>;
+	pinctrl-1 = <&emac0_pin_rgmii_txc
+			&emac0_pin_rgmii_txd0
+			&emac0_pin_rgmii_txd1
+			&emac0_pin_rgmii_txd2
+			&emac0_pin_rgmii_txd3
+			&emac0_pin_rgmii_tx_ctl
+			&emac0_pin_rgmii_rxc
+			&emac0_pin_rgmii_rxd0
+			&emac0_pin_rgmii_rxd1
+			&emac0_pin_rgmii_rxd2
+			&emac0_pin_rgmii_rxd3
+			&emac0_pin_rgmii_rx_ctl>;
+
+	phy-mode = "rgmii-rxid";
+
+	/* No PHY present in mac2mac mode; drop the MDIO-managed phy-handle */
+	/delete-property/ phy-handle;
+
+	fixed-link {
+		speed = <10>;
+		full-duplex;
+	};
+};

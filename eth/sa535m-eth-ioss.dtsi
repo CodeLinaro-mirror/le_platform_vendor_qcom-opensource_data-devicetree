@@ -22,6 +22,7 @@
 
 	iemac_rx_be: iemac_rx@default {
 		qcom,dir-rx;
+		qcom,compatible-ipa-configs = "default", "qos";
 		qcom,rx-filter-be;
 		qcom,channel-num = <0>;
 		qcom,queue-number = <0>;
@@ -37,10 +38,60 @@
 
 	iemac_tx_be: iemac_tx@default {
 		qcom,dir-tx;
+		qcom,compatible-ipa-configs = "default", "qos";
 		qcom,channel-num = <0>;
 		qcom,queue-number = <0>;
 
 		qcom,ring-size = <1024>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+	iemac_rx_qos0: iemac_rx0@qos {
+		qcom,dir-rx;
+		qcom,rx-filter-qos;
+		qcom,ioss-traffic-type = "qos";
+		qcom,compatible-ipa-configs = "qos";
+		qcom,channel-num = <2>;
+		qcom,queue-number = <2>;
+
+		qcom,ring-size = <512>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+	iemac_tx_qos0: iemac_tx0@qos {
+		qcom,dir-tx;
+		qcom,ioss-traffic-type = "qos";
+		qcom,compatible-ipa-configs = "qos";
+		qcom,channel-num = <2>;
+		qcom,queue-number = <2>;
+
+		qcom,ring-size = <512>;
+		qcom,buff-size = <2048>;
+
+		qcom,mod-count-min = <16>;
+		qcom,mod-count-max = <16>;
+		qcom,mod-usecs-min = <30>;
+		qcom,mod-usecs-max = <60>;
+	};
+
+	iemac_tx_qos1: iemac_tx1@qos {
+		qcom,dir-tx;
+		qcom,ioss-traffic-type = "qos";
+		qcom,compatible-ipa-configs = "qos";
+		qcom,channel-num = <3>;
+		qcom,queue-number = <3>;
+
+		qcom,ring-size = <512>;
 		qcom,buff-size = <2048>;
 
 		qcom,mod-count-min = <16>;
@@ -56,7 +107,7 @@
 
 	qcom,ioss = <&ioss>;
 	qcom,ioss_instance = <0>;
-	qcom,ioss_channels = <&iemac_rx_be>, <&iemac_tx_be>;
+	qcom,ioss_channels = <&iemac_rx_be>, <&iemac_tx_be>, <&iemac_rx_qos0>, <&iemac_tx_qos0>, <&iemac_tx_qos1>;
 	memory-region = <&emac0_smmu_region>;
 	qcom,disable_ipa_tx;
 };
@@ -66,7 +117,7 @@
 
 	qcom,ioss = <&ioss>;
 	qcom,ioss_instance = <1>;
-	qcom,ioss_channels = <&iemac_rx_be>, <&iemac_tx_be>;
+	qcom,ioss_channels = <&iemac_rx_be>, <&iemac_tx_be>, <&iemac_rx_qos0>, <&iemac_tx_qos0>, <&iemac_tx_qos1>;
 	memory-region = <&emac1_smmu_region>;
 	qcom,disable_ipa_tx;
 };

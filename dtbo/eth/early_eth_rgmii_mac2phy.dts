@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "sa535m_emac0_rgmii_mac2phy.dts"
+
+/ {
+	model = "Qualcomm Technologies, Inc. SA535M TDP Early ETH RGMII MAC2PHY";
+};
+
+&emac0 {
+	ipv4-addr = "192.168.225.10";
+	ipv6-addr = "fe80::1";
+	qcom,early-eth-en;
+};

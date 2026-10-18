@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "echo-eth.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. ECHO IDP QMP5 V7";
+
+	compatible = "qcom,echo-idp",
+			"qcom,echo", "qcom,idp";
+	qcom,msm-id = <701 0x10000>, <787 0x10000>;
+	qcom,board-id = <0x2070022 0x0>;
+};

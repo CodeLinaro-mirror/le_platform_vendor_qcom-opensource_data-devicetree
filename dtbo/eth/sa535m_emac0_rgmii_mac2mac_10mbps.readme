@@ -1,0 +1,17 @@
+# sa535m_emac0_rgmii_mac2mac_10mbps
+
+Switches EMAC0 on SA535M to RGMII MAC-to-MAC mode at 10 Mbps: no PHY chip is
+present, so the link is described with a `fixed-link` instead of an
+MDIO-managed `phy-handle`.
+
+## Platform
+- SoC: SA535M (`msm-id = 703`)
+- Board variants: EMMC TDP (`0x10030 0x0`), NAND TDP (`0x10030 0x20000`)
+
+## EMAC0
+- Interface: RGMII (`rgmii`, no internal delay) — on the echo-ethqos driver
+  (`ethqos_configure_echo()`), the RGMII delay/DLL registers are hardcoded
+  per speed and not gated by the DT `phy-mode` string, so `rgmii`/`rgmii-id`/
+  `rgmii-rxid`/`rgmii-txid` are all functionally identical here.
+- Link: fixed-link, 10 Mbps full-duplex
+- MDIO/phy-handle: removed (no PHY to manage)
